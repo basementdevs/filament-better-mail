@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Basement\BetterMails\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FilamentBetterMailsCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-better-mails';
 
     public $description = 'My command';
 
