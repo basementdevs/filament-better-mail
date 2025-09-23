@@ -10,8 +10,10 @@ npm-debug.log
 yarn-error.log
 
 # Caches
+.pint.result.cache
 .phpunit.cache
 .phpunit.result.cache
+.rector.cache
 /build
 
 # IDE Helper

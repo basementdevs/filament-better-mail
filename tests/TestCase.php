@@ -2,9 +2,9 @@
 
 namespace Basement\BetterMails\Tests;
 
+use Basement\BetterMails\FilamentBetterMailsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Basement\BetterMails\FilamentBetterMailsServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -17,13 +17,6 @@ class TestCase extends Orchestra
         );
     }
 
-    protected function getPackageProviders($app)
-    {
-        return [
-            FilamentBetterMailsServiceProvider::class,
-        ];
-    }
-
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
@@ -33,5 +26,12 @@ class TestCase extends Orchestra
             (include $migration->getRealPath())->up();
          }
          */
+    }
+
+    protected function getPackageProviders($app)
+    {
+        return [
+            FilamentBetterMailsServiceProvider::class,
+        ];
     }
 }

@@ -4,7 +4,6 @@ namespace Basement\BetterMails;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Basement\BetterMails\Commands\FilamentBetterMailsCommand;
 
 class FilamentBetterMailsServiceProvider extends PackageServiceProvider
 {
@@ -19,7 +18,6 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
             ->name('filament-better-mails')
             ->hasConfigFile()
             ->hasViews()
-            ->discoversMigrations()
-            ->hasCommand(FilamentBetterMailsCommand::class);
+            ->discoversMigrations();
     }
 }

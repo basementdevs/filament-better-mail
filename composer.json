@@ -16,19 +16,22 @@
         }
     ],
     "require": {
-        "php": "^8.4",
+        "php": "^8.3",
         "filament/filament": "^4.0",
-        "illuminate/contracts": "^11.0||^12.0",
+        "illuminate/contracts": "^12.0",
         "resend/resend-laravel": "^0.22",
         "spatie/laravel-package-tools": "^1.16"
     },
     "require-dev": {
+        "driftingly/rector-laravel": "^2.0.4",
+        "larastan/larastan": "^3.0",
         "laravel/pint": "^1.14",
         "nunomaduro/collision": "^8.8",
         "orchestra/testbench": "^10.0.0||^9.0.0",
         "pestphp/pest": "^4.0",
         "pestphp/pest-plugin-arch": "^4.0",
-        "pestphp/pest-plugin-laravel": "^4.0"
+        "pestphp/pest-plugin-laravel": "^4.0",
+        "rector/rector": "^2.0.15"
     },
     "autoload": {
         "psr-4": {
@@ -38,8 +41,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Basement\\BetterMails\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "Basement\\BetterMails\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -60,11 +62,8 @@
     "extra": {
         "laravel": {
             "providers": [
-              "FilamentBetterMailsServiceProvider"
-            ],
-            "aliases": {
-                "BetterMails": "Basement\\BetterMails\\Facades\\BetterMails"
-            }
+                "Basement\\BetterMails\\FilamentBetterMailsServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",
