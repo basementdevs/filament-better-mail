@@ -123,6 +123,12 @@ class BetterEmail extends Model
             ->orderBy('occurred_at', 'desc');
     }
 
+    public function sent(): void
+    {
+        $this->update(['sent_at' => now()]);
+    }
+
+
     protected static function newFactory(): BetterMailFactory
     {
         return BetterMailFactory::new();
