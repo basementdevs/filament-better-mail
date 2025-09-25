@@ -4,7 +4,6 @@ namespace Basement\BetterMails\Core\Listeners;
 
 use Basement\BetterMails\Core\Actions\CreateBetterMailAction;
 use Basement\BetterMails\Core\DTOs\BetterMailDTO;
-use Basement\BetterMails\Core\Enums\SupportedMailProviders;
 use Illuminate\Mail\Events\MessageSending;
 use Ramsey\Uuid\Uuid;
 
@@ -27,7 +26,7 @@ class BeforeSendingMailListener
                 'cc' => $event->message->getCc() ?? null,
                 'bcc' => $event->message->getBcc() ?? null,
                 'mail_class' => $event->data['__laravel_mailable'] ?? null,
-                'transport' => config('filament-better-mails' . $event->data['mailer'] . '.transport','resend') ?? 'null',
+                'transport' => config('filament-better-mails'.$event->data['mailer'].'.transport', 'resend') ?? 'null',
             ]),
         );
 
