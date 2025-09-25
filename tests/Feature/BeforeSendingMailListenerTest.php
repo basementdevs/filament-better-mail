@@ -43,9 +43,6 @@ it('should store an mail before sending', function () {
 it('should add X-Better-Mails-Event-Id text header to mail', function () {
     Mail::fake();
 
-    $mailable = new FakeMail;
-    $mailable->to('richard@3points.com');
-
     $email = (new Email)
         ->subject('Test Subject')
         ->from('from@example.com')
