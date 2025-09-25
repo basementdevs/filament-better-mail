@@ -128,7 +128,6 @@ class BetterEmail extends Model
         $this->update(['sent_at' => now()]);
     }
 
-
     protected static function newFactory(): BetterMailFactory
     {
         return BetterMailFactory::new();

@@ -19,14 +19,6 @@ class TestCase extends Orchestra
         $this->loadMigrations();
     }
 
-    protected function getPackageProviders($app): array
-    {
-        return [
-          FilamentBetterMailsServiceProvider::class,
-        ];
-    }
-
-
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
@@ -40,8 +32,8 @@ class TestCase extends Orchestra
 
     public function loadMigrations(): void
     {
-        $filesystem = new Filesystem();
-        $migrationFiles = $filesystem->files(__DIR__ . '/../database/migrations/');
+        $filesystem = new Filesystem;
+        $migrationFiles = $filesystem->files(__DIR__.'/../database/migrations/');
 
         // Sorting to ensure migrations run in the correct order
         usort($migrationFiles, function ($a, $b) {
@@ -57,5 +49,12 @@ class TestCase extends Orchestra
             $migration = include $file->getPathname();
             $migration->up();
         }
+    }
+
+    protected function getPackageProviders($app): array
+    {
+        return [
+            FilamentBetterMailsServiceProvider::class,
+        ];
     }
 }

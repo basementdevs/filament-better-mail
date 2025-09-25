@@ -19,7 +19,7 @@ final readonly class BetterMailDTO
         public ?string $bcc,
         public ?string $mail_class,
         public SupportedMailProviders $transport,
-    ){}
+    ) {}
 
     public static function make(array $data): self
     {
@@ -38,5 +38,4 @@ final readonly class BetterMailDTO
             transport: SupportedMailProviders::from($data['transport']),
         );
     }
-
 }
