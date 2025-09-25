@@ -1,6 +1,12 @@
 <?php
 
 // config for Basement/BetterMails
-return [
+use Basement\BetterMails\Core\Models\BetterEmail;
 
+return [
+    'mails' => [
+        'models' => [
+            'mail' => BetterEmail::class
+        ],
+    ]
 ];

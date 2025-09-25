@@ -23,6 +23,9 @@
         <testsuite name="Basement Test Unit Suite">
             <directory>tests/Unit</directory>
         </testsuite>
+        <testsuite name="Basement Test Feature Suite">
+            <directory>tests/Feature</directory>
+        </testsuite>
     </testsuites>
     <logging>
         <junit outputFile="build/report.junit.xml"/>
