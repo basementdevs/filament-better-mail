@@ -6,7 +6,7 @@ use Basement\BetterMails\Core\Enums\MailEventType;
 use Basement\BetterMails\Core\Models\BetterEmail;
 use Basement\BetterMails\Core\Models\BetterEmailEvent;
 
-class MarkEmailAsSent
+class MarkMailAsSentAction
 {
     public static function execute(BetterEmail $email): void
     {
