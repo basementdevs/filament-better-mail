@@ -82,11 +82,11 @@ class BetterEmail extends Model
         'transport' => 'string',
         'stream_id' => 'string',
         'subject' => 'string',
-        'from' => 'json',
-        'reply_to' => 'json',
-        'to' => 'json',
-        'cc' => 'json',
-        'bcc' => 'json',
+        'from' => 'array',
+        'reply_to' => 'array',
+        'to' => 'array',
+        'cc' => 'array',
+        'bcc' => 'array',
         'opens' => 'integer',
         'clicks' => 'integer',
         'tags' => 'json',
@@ -121,6 +121,11 @@ class BetterEmail extends Model
         return $this
             ->hasMany(BetterEmailEvent::class, 'mail_id')
             ->orderBy('occurred_at', 'desc');
+    }
+
+    public function sent(): void
+    {
+        $this->update(['sent_at' => now()]);
     }
 
     protected static function newFactory(): BetterMailFactory

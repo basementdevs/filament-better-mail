@@ -2,6 +2,7 @@
 
 namespace Basement\BetterMails\Database\Factories;
 
+use Basement\BetterMails\Core\Enums\SupportedMailProviders;
 use Basement\BetterMails\Core\Models\BetterEmail;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,6 +20,7 @@ class BetterMailFactory extends Factory
             'from' => [
                 $this->faker->email => $this->faker->firstName(),
             ],
+            'transport' => $this->faker->randomElement(SupportedMailProviders::cases()),
             'reply_to' => null,
             'to' => [
                 $this->faker->email => $this->faker->firstName(),

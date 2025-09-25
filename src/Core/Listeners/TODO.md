@@ -1,7 +1,7 @@
 # Listeners
 
-- [ ] Implement `BeforeSendingMailEvent`   
-- [ ] Implement `AfterSendingMailEvent` 
-- [ ] Implement `ProcessWebhookMailEvent` 
+- [ ] Implement `BeforeSendingMailListener`   
+- [ ] Implement `AfterSendingMailListener` 
+- [ ] Implement `ProcessWebhookMailListener` 
 
 >  interacts with action
