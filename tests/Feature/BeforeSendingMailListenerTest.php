@@ -8,6 +8,8 @@ use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Mail\Events\MessageSent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
+use Ramsey\Uuid\Uuid;
+use Symfony\Component\Mime\Email;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
@@ -36,4 +38,36 @@ it('should store an mail before sending', function () {
         'mail_class' => FakeMail::class,
         'transport' => SupportedMailProviders::Resend->value,
     ]);
+});
+
+it('should add X-Better-Mails-Event-Id text header to mail', function () {
+    Mail::fake();
+
+    $mailable = new FakeMail;
+    $mailable->to('richard@3points.com');
+
+    $email = (new Email)
+        ->subject('Test Subject')
+        ->from('from@example.com')
+        ->to('richard@3points.com')
+        ->cc('cc@example.com')
+        ->bcc('bcc@example.com')
+        ->replyTo('replyto@example.com')
+        ->html('<h1>Test HTML</h1>')
+        ->text('Test Text');
+
+    $listener = new BeforeSendingMailListener;
+
+    $event = new MessageSending($email, [
+        'mailer' => 'resend',
+        '__laravel_mailable' => FakeMail::class
+    ]);
+
+    $listener->handle($event);
+
+    $headers = $email->getHeaders();
+    expect($headers->get('X-Better-Mails-Event-Id'))->not->toBeNull();
+
+    $headerValue = $headers->get('X-Better-Mails-Event-Id')->getBody();
+    expect(Uuid::isValid($headerValue))->toBeTrue();
 });

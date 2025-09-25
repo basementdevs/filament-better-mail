@@ -44,7 +44,7 @@ return new class extends Migration
 
         Schema::create(config('filament-better-mails.mails.database.tables.events', 'mail_events'), function (Blueprint $table): void {
             $table->id();
-            $table->foreignIdFor(config('filament-better-mails.mails.models.mail'))
+            $table->foreignIdFor(config('filament-better-mails.mails.models.mail'),'mail_id')
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('type');
