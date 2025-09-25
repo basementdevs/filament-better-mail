@@ -30,11 +30,11 @@ it('should store an mail before sending', function () {
     assertDatabaseHas(BetterEmail::class, [
         'mailer' => 'log',
         'subject' => 'Fake Mail',
-        'from' => '"hello@example.com"',
-        'to' => '"richard@3points.com"',
-        'reply_to' => '"hello@example.com"',
-        'cc' => '"fake@example.com"',
-        'bcc' => '"fake2@example.com"',
+        'from' => json_encode(['hello@example.com']),
+        'to' => json_encode(['richard@3points.com']),
+        'reply_to' => json_encode(['hello@example.com']),
+        'cc' => json_encode(['fake@example.com']),
+        'bcc' => json_encode(['fake2@example.com']),
         'mail_class' => FakeMail::class,
         'transport' => SupportedMailProviders::Resend->value,
     ]);
@@ -63,8 +63,8 @@ it('should add X-Better-Mails-Event-Id text header to mail', function () {
     $listener->handle($event);
 
     $headers = $email->getHeaders();
-    expect($headers->get('X-Better-Mails-Event-Id'))->not->toBeNull();
+    expect($headers->get(config('filament-better-mails.mails.headers.key')))->not->toBeNull();
 
-    $headerValue = $headers->get('X-Better-Mails-Event-Id')->getBody();
+    $headerValue = $headers->get(config('filament-better-mails.mails.headers.key'))->getBody();
     expect(Uuid::isValid($headerValue))->toBeTrue();
 });

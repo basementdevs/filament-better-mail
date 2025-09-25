@@ -15,22 +15,22 @@ class BeforeSendingMailListener
         $uuid = Uuid::uuid4();
 
         CreateBetterMailAction::execute(
-            BetterMailDTO::make([
+            BetterMailDTO::fromBeforeSend([
                 'uuid' => $uuid,
                 'mailer' => $event->data['mailer'],
                 'subject' => $event->message->getSubject() ?? null,
                 'html' => $event->message->getHtmlBody() ?? null,
                 'text' => $event->message->getTextBody() ?? null,
-                'from' => $event->message->getFrom()[0]->getAddress() ?? null,
-                'to' => $event->message->getTo()[0]->getAddress() ?? null,
-                'reply_to' => $event->message->getFrom()[0]->getAddress() ?? null,
-                'cc' => $event->message->getCc()[0]->getAddress() ?? null,
-                'bcc' => $event->message->getBcc()[0]->getAddress() ?? null,
+                'from' => $event->message->getFrom() ?? null,
+                'to' => $event->message->getTo() ?? null,
+                'reply_to' => $event->message->getFrom() ?? null,
+                'cc' => $event->message->getCc() ?? null,
+                'bcc' => $event->message->getBcc() ?? null,
                 'mail_class' => $event->data['__laravel_mailable'] ?? null,
                 'transport' => SupportedMailProviders::Resend->value,
             ]),
         );
 
-        $event->message->getHeaders()->addTextHeader('X-Better-Mails-Event-Id', $uuid);
+        $event->message->getHeaders()->addTextHeader(config('filament-better-mails.mails.headers.key'), $uuid);
     }
 }

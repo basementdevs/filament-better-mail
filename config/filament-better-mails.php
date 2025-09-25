@@ -8,5 +8,8 @@ return [
         'models' => [
             'mail' => BetterEmail::class
         ],
+        'headers' => [
+            'key' => 'X-Better-Mails-Event-Id'
+        ]
     ]
 ];
