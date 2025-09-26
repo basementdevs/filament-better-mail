@@ -106,14 +106,14 @@ class BetterEmail extends Model
 
     public function prunable(): Builder
     {
-        $pruneAfter = config('mails.database.pruning.after', 30);
+        $pruneAfter = config('filament-better-mails.mails.database.pruning.after', 30);
 
         return static::query()->where('created_at', '<=', now()->subDays($pruneAfter));
     }
 
     public function attachments(): HasMany
     {
-        return $this->hasMany(config('mails.models.attachment'), 'mail_id');
+        return $this->hasMany(config('filament-better-mails.mails.models.attachment'), 'mail_id');
     }
 
     public function events(): HasMany

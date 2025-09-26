@@ -2,7 +2,7 @@
 
 namespace Basement\BetterMails\Core\Actions;
 
-use Basement\BetterMails\Core\Enums\MailEventType;
+use Basement\BetterMails\Core\Enums\MailEventTypeEnum;
 use Basement\BetterMails\Core\Models\BetterEmail;
 
 class MarkMailAsSentAction
@@ -13,7 +13,7 @@ class MarkMailAsSentAction
 
         $email->events()->create([
             'mail_id' => $email->getKey(),
-            'type' => MailEventType::Sent,
+            'type' => MailEventTypeEnum::Sent,
         ]);
     }
 }

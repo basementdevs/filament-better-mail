@@ -26,7 +26,7 @@ class BeforeSendingMailListener
                 'cc' => $event->message->getCc() ?? null,
                 'bcc' => $event->message->getBcc() ?? null,
                 'mail_class' => $event->data['__laravel_mailable'] ?? null,
-                'transport' => config('filament-better-mails'.$event->data['mailer'].'.transport', 'resend') ?? 'null',
+                'transport' => config('filament-better-mails.'.$event->data['mailer'].'.transport', 'resend') ?? 'null',
             ]),
         );
 

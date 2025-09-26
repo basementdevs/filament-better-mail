@@ -1,6 +1,6 @@
 <?php
 
-use Basement\BetterMails\Core\Enums\MailEventType;
+use Basement\BetterMails\Core\Enums\MailEventTypeEnum;
 use Basement\BetterMails\Core\Enums\SupportedMailProviders;
 use Basement\BetterMails\Core\Listeners\AfterSendingMailListener;
 use Basement\BetterMails\Core\Models\BetterEmail;
@@ -43,6 +43,6 @@ it('should register an event after MessageSent', function () {
 
     assertDatabaseHas(BetterEmailEvent::class, [
         'mail_id' => $email->getKey(),
-        'type' => MailEventType::Sent,
+        'type' => MailEventTypeEnum::Sent,
     ]);
 });
