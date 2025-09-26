@@ -2,7 +2,6 @@
 
 namespace Basement\BetterMails\Filament\Schemas;
 
-
 use Basement\BetterMails\Core\Enums\MailEventTypeEnum;
 use Basement\BetterMails\Core\Models\BetterEmail;
 use Basement\BetterMails\Core\Models\BetterEmailEvent;

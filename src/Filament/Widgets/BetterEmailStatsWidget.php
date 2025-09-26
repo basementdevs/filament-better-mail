@@ -7,7 +7,6 @@ use Filament\Facades\Filament;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
-
 class BetterEmailStatsWidget extends BaseWidget
 {
     protected static ?int $sort = 0;

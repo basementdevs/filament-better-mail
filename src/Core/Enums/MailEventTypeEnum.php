@@ -10,7 +10,7 @@ use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
 use Termwind\Enums\Color;
 
-enum MailEventTypeEnum: string implements HasColor, HasLabel, HasIcon
+enum MailEventTypeEnum: string implements HasColor, HasIcon, HasLabel
 {
     // Initial internal event when the email is created
     case Sent = 'sent';

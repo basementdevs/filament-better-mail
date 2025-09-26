@@ -2,8 +2,6 @@
 
 namespace Basement\BetterMails\Core\Models;
 
-use Backstage\Mails\Database\Factories\MailAttachmentFactory;
-use Backstage\Mails\Models\Mail;
 use Basement\BetterMails\Database\Factories\BetterEmailAttachmentFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,6 +23,7 @@ class BetterEmailAttachment extends Model
      * @property-read BetterEmail $mail
      */
     protected $table = 'mail_attachments';
+
     protected $fillable = [
         'disk',
         'uuid',
@@ -48,11 +47,6 @@ class BetterEmailAttachment extends Model
         return config('filament-better-mails.mails.database.tables.attachments');
     }
 
-    protected static function newFactory(): Factory
-    {
-        return BetterEmailAttachmentFactory::new();
-    }
-
     public function mail(): BelongsTo
     {
         return $this->belongsTo(config('filament-better-mails.mails.models.mail'));
@@ -74,7 +68,12 @@ class BetterEmailAttachment extends Model
             ->download(
                 $this->storagePath,
                 $filename ?? $this->filename, [
-                'Content-Type' => $this->mime,
-            ]);
+                    'Content-Type' => $this->mime,
+                ]);
+    }
+
+    protected static function newFactory(): Factory
+    {
+        return BetterEmailAttachmentFactory::new();
     }
 }

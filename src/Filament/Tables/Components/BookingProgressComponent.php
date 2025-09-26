@@ -22,7 +22,6 @@ final class BookingProgressComponent extends TextColumn
 
         $state = $this->getState();
 
-
         if ($state instanceof Collection) {
             $state = $state->all();
         }
@@ -43,9 +42,7 @@ final class BookingProgressComponent extends TextColumn
                     : null,
             ], escape: false);
 
-
         $icons = $this->buildItems($state);
-
 
         ob_start(); ?>
 

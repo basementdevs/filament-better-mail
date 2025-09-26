@@ -55,6 +55,7 @@ class BetterEmailResource extends Resource
             'view' => ViewBetterEmail::route('/{record}/view'),
         ];
     }
+
     public function getTitle(): string
     {
         return __('Emails');
