@@ -2,7 +2,7 @@
 
 namespace Basement\BetterMails\Core;
 
-use Basement\BetterMails\Core\Enums\SupportedMailProviders;
+use Basement\BetterMails\Core\Enums\SupportedMailProvidersEnum;
 use Illuminate\Support\Manager;
 
 class BetterMailManager extends Manager
@@ -14,6 +14,6 @@ class BetterMailManager extends Manager
 
     public function getDefaultDriver(): string
     {
-        return SupportedMailProviders::Resend->value;
+        return SupportedMailProvidersEnum::Resend->value;
     }
 }

@@ -2,23 +2,23 @@
 
 namespace Basement\BetterMails\Core\DTOs;
 
-use Basement\BetterMails\Core\Enums\SupportedMailProviders;
+use Basement\BetterMails\Core\Enums\SupportedMailProvidersEnum;
 
 final readonly class BetterMailDTO
 {
     public function __construct(
         public ?string $uuid,
-        public string $mailer,
-        public ?string $subject,
-        public ?string $html,
-        public ?string $text,
-        public null|array|string $from,
-        public null|array|string $to,
-        public null|array|string $reply_to,
-        public null|array|string $cc,
-        public null|array|string $bcc,
-        public ?string $mail_class,
-        public SupportedMailProviders $transport,
+        public string                     $mailer,
+        public ?string                    $subject,
+        public ?string                    $html,
+        public ?string                    $text,
+        public null|array|string          $from,
+        public null|array|string          $to,
+        public null|array|string          $reply_to,
+        public null|array|string          $cc,
+        public null|array|string          $bcc,
+        public ?string                    $mail_class,
+        public SupportedMailProvidersEnum $transport,
     ) {}
 
     public static function make(array $data): self
@@ -35,7 +35,7 @@ final readonly class BetterMailDTO
             cc: $data['cc'],
             bcc: $data['bcc'],
             mail_class: $data['mail_class'],
-            transport: SupportedMailProviders::from($data['transport']),
+            transport: SupportedMailProvidersEnum::from($data['transport']),
         );
     }
 
@@ -53,7 +53,7 @@ final readonly class BetterMailDTO
             cc: $data['cc'],
             bcc: $data['bcc'],
             mail_class: $data['mail_class'],
-            transport: SupportedMailProviders::from($data['transport']),
+            transport: SupportedMailProvidersEnum::from($data['transport']),
         );
     }
 }
