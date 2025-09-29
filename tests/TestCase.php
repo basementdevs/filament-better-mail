@@ -6,7 +6,6 @@ use Basement\BetterMails\FilamentBetterMailsServiceProvider;
 use Basement\BetterMails\Tests\Fixtures\FIlament\AdminPanelProvider;
 use Filament\FilamentServiceProvider;
 use Filament\Support\SupportServiceProvider;
-use Filament\Tables\TablesServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Filesystem\Filesystem;
 use Livewire\LivewireServiceProvider;

@@ -8,16 +8,16 @@ final readonly class BetterMailDTO
 {
     public function __construct(
         public ?string $uuid,
-        public string                     $mailer,
-        public ?string                    $subject,
-        public ?string                    $html,
-        public ?string                    $text,
-        public null|array|string          $from,
-        public null|array|string          $to,
-        public null|array|string          $reply_to,
-        public null|array|string          $cc,
-        public null|array|string          $bcc,
-        public ?string                    $mail_class,
+        public string $mailer,
+        public ?string $subject,
+        public ?string $html,
+        public ?string $text,
+        public null|array|string $from,
+        public null|array|string $to,
+        public null|array|string $reply_to,
+        public null|array|string $cc,
+        public null|array|string $bcc,
+        public ?string $mail_class,
         public SupportedMailProvidersEnum $transport,
     ) {}
 
