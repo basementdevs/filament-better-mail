@@ -73,14 +73,14 @@ enum MailEventTypeEnum: string implements HasColor, HasIcon, HasLabel
     public function getCssClasses(): string
     {
         return match ($this) {
-            self::Sent => 'bg-blue-500 text-white',
-            self::Accepted => 'bg-emerald-600 text-white',
-            self::Clicked => 'bg-indigo-500 text-white',
-            self::Complained => 'bg-yellow-500 text-white',
-            self::SoftBounced => 'bg-orange-500 text-white',
-            self::Delivered => 'bg-green-500 text-white',
-            self::HardBounced => 'bg-red-600 text-white',
-            self::Opened => 'bg-purple-500 text-white',
+            self::Sent => 'bg-sky-100 text-sky-800 dark:bg-sky-800 dark:text-sky-100',
+            self::Accepted => 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100',
+            self::Clicked => 'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100',
+            self::Complained => 'bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100',
+            self::SoftBounced => 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100',
+            self::Delivered => 'bg-indigo-100 text-indigo-800 dark:bg-indigo-800 dark:text-indigo-100',
+            self::HardBounced => 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100',
+            self::Opened => 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
             self::Unsubscribed => 'bg-gray-500 text-white',
         };
     }
