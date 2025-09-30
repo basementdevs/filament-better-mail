@@ -4,6 +4,8 @@ namespace Basement\BetterMails\Filament\Pages;
 
 use Basement\BetterMails\Core\Enums\MailEventTypeEnum;
 use Basement\BetterMails\Core\Models\BetterEmail;
+use Basement\BetterMails\Filament\Actions\BulkResendAction;
+use Basement\BetterMails\Filament\Actions\ResendAction;
 use Basement\BetterMails\Filament\BetterEmailResource;
 use Basement\BetterMails\Filament\Tables\Components\BookingProgressComponent;
 use Basement\BetterMails\Filament\Widgets\BetterEmailStatsWidget;
@@ -32,13 +34,13 @@ class ListBetterEmails extends ListRecords
         return [
             Tab::make()
                 ->label('All')
-                ->badge(fn ($query) => BetterEmail::query()->count()),
-            ...collect(MailEventTypeEnum::cases())->map(fn (MailEventTypeEnum $event) => Tab::make()
+                ->badge(fn($query) => BetterEmail::query()->count()),
+            ...collect(MailEventTypeEnum::cases())->map(fn(MailEventTypeEnum $event) => Tab::make()
                 ->icon($event->getIcon())
                 ->label($event->getLabel())
                 ->badgeColor($event->getColor())
-                ->modifyQueryUsing(fn ($query) => $query->whereHas('events', fn ($q) => $q->where('type', $event)))
-                ->badge(fn () => BetterEmail::whereHas('events', fn ($q) => $q->where('type', $event))->count())
+                ->modifyQueryUsing(fn($query) => $query->whereHas('events', fn($q) => $q->where('type', $event)))
+                ->badge(fn() => BetterEmail::whereHas('events', fn($q) => $q->where('type', $event))->count())
             )->toArray(),
         ];
     }
@@ -60,35 +62,35 @@ class ListBetterEmails extends ListRecords
                     ->label('')
                     ->alignLeft()
                     ->searchable(false)
-                    ->state(fn (BetterEmail $record): bool => $record->attachments->count())
+                    ->state(fn(BetterEmail $record): bool => $record->attachments->count())
                     ->icon(Heroicon::PaperClip),
                 TextColumn::make('to')
                     ->label(__('Recipient(s)'))
                     ->limit(50)
-                    ->getStateUsing(fn (BetterEmail $record): string => self::formatMailState(emails: $record->to, mailOnly: true))
+                    ->getStateUsing(fn(BetterEmail $record): string => self::formatMailState(emails: $record->to, mailOnly: true))
                     ->sortable()
                     ->searchable(),
                 BookingProgressComponent::make()
                     ->label('Progress')
-                    ->state(fn ($record) => $record->events),
+                    ->state(fn($record) => $record->events),
                 TextColumn::make('opens')
                     ->label(__('Opens'))
-                    ->tooltip(fn (BetterEmail $record): array|string|null => __('Last opened at :date', ['date' => $record->last_opened_at?->format('d-m-Y H:i')]))
+                    ->tooltip(fn(BetterEmail $record): array|string|null => __('Last opened at :date', ['date' => $record->last_opened_at?->format('d-m-Y H:i')]))
                     ->sortable(),
                 TextColumn::make('clicks')
                     ->label(__('Clicks'))
-                    ->tooltip(fn (BetterEmail $record): array|string|null => __('Last clicked at :date', ['date' => $record->last_clicked_at?->format('d-m-Y H:i')]))
+                    ->tooltip(fn(BetterEmail $record): array|string|null => __('Last clicked at :date', ['date' => $record->last_clicked_at?->format('d-m-Y H:i')]))
                     ->sortable(),
                 TextColumn::make('sent_at')
                     ->label(__('Sent At'))
                     ->dateTime('d-m-Y H:i')
                     ->since()
-                    ->tooltip(fn (BetterEmail $record) => $record->sent_at?->format('d-m-Y H:i'))
+                    ->tooltip(fn(BetterEmail $record) => $record->sent_at?->format('d-m-Y H:i'))
                     ->sortable()
                     ->searchable(),
             ])
             ->modifyQueryUsing(
-                fn (Builder $query) => $query->with('attachments')
+                fn(Builder $query) => $query->with('attachments')
             )
             ->recordActions([
                 ViewAction::make()
@@ -97,11 +99,11 @@ class ListBetterEmails extends ListRecords
                     ->label(__('View'))
                     ->hiddenLabel()
                     ->tooltip(__('View')),
-                //                ResendAction::make(),
+                ResendAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    //                    BulkResendAction::make(),
+                    BulkResendAction::make(),
                     DeleteBulkAction::make(),
                 ]),
             ]);
@@ -117,8 +119,8 @@ class ListBetterEmails extends ListRecords
     private static function formatMailState(array $emails, bool $mailOnly = false): string
     {
         return collect($emails)
-            ->mapWithKeys(fn ($value, $key) => [$key => $value ?? $key])
-            ->map(fn ($value, $key): string|int => $mailOnly ? $key : ($value == null ? $key : ($value !== $key ? sprintf('%s <%s>', $value, $key) : $key)))
+            ->mapWithKeys(fn($value, $key) => [$key => $value ?? $key])
+            ->map(fn($value, $key): string|int => $mailOnly ? $value : ($value == null ? $key : ($value !== $key ? sprintf('%s <%s>', $value, $key) : $key)))
             ->implode(', ');
     }
 }
