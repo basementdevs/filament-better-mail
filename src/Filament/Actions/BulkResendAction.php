@@ -2,9 +2,9 @@
 
 namespace Basement\BetterMails\Filament\Actions;
 
+use Basement\BetterMails\Core\DTOs\ResendMailDTO;
 use Basement\BetterMails\Core\Jobs\SendEmailJob;
 use Basement\BetterMails\Filament\Schemas\BetterEmailForm;
-use Basement\BetterMails\Resend\Email\DTOs\ResendDTO;
 use Filament\Actions\BulkAction;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Collection;
@@ -32,7 +32,7 @@ class BulkResendAction extends BUlkAction
     private function sendMails(Collection $records, array $data): void
     {
         foreach ($records as $record) {
-            SendEmailJob::dispatch(ResendDTO::make([
+            SendEmailJob::dispatch(ResendMailDTO::make([
                 'mail' => $record,
                 'to' => $data['to'] ?? [],
                 'cc' => $data['cc'] ?? [],

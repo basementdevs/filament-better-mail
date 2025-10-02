@@ -1,10 +1,10 @@
 <?php
 
-namespace Basement\BetterMails\Resend\Email\DTOs;
+namespace Basement\BetterMails\Core\DTOs;
 
 use Basement\BetterMails\Core\Models\BetterEmail;
 
-final readonly class ResendDTO
+final readonly class ResendMailDTO
 {
     public function __construct(
         public BetterEmail $mail,

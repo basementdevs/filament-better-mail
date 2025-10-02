@@ -2,10 +2,10 @@
 
 namespace Basement\BetterMails\Filament\Actions;
 
+use Basement\BetterMails\Core\DTOs\ResendMailDTO;
 use Basement\BetterMails\Core\Jobs\SendEmailJob;
 use Basement\BetterMails\Core\Models\BetterEmail;
 use Basement\BetterMails\Filament\Schemas\BetterEmailForm;
-use Basement\BetterMails\Resend\Email\DTOs\ResendDTO;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Support\Icons\Heroicon;
@@ -43,7 +43,7 @@ final class ResendAction extends Action
 
     private function sendMail(BetterEmail $record, array $data): void
     {
-        SendEmailJob::dispatch(ResendDTO::make([
+        SendEmailJob::dispatch(ResendMailDTO::make([
             'mail' => $record,
             'to' => $data['to'] ?? [],
             'cc' => $data['cc'] ?? [],

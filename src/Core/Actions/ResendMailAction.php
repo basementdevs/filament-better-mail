@@ -1,14 +1,14 @@
 <?php
 
-namespace Basement\BetterMails\Resend\Email\Actions;
+namespace Basement\BetterMails\Core\Actions;
 
-use Basement\BetterMails\Resend\Email\DTOs\ResendDTO;
+use Basement\BetterMails\Core\DTOs\ResendMailDTO;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Mail;
 
 final class ResendMailAction
 {
-    public function send(ResendDTO $dto): void
+    public function send(ResendMailDTO $dto): void
     {
         Mail::send([], [], function (Message $message) use ($dto) {
             $this->setMessageContent($message, $dto)
@@ -16,7 +16,7 @@ final class ResendMailAction
         });
     }
 
-    private function setMessageContent(Message $message, ResendDTO $dto): self
+    private function setMessageContent(Message $message, ResendMailDTO $dto): self
     {
         $message->html($dto->mail->html ?? '')
             ->text($dto->mail->text ?? '');
@@ -32,7 +32,7 @@ final class ResendMailAction
         return $this;
     }
 
-    private function setMessageRecipients(Message $message, ResendDTO $dto): self
+    private function setMessageRecipients(Message $message, ResendMailDTO $dto): self
     {
         $message->subject($dto->mail->subject ?? '')
             ->from(array_values($dto->mail->from)[0], array_values($dto->mail->from)[0])

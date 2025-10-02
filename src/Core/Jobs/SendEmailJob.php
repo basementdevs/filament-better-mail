@@ -2,8 +2,8 @@
 
 namespace Basement\BetterMails\Core\Jobs;
 
-use Basement\BetterMails\Resend\Email\Actions\ResendMailAction;
-use Basement\BetterMails\Resend\Email\DTOs\ResendDTO;
+use Basement\BetterMails\Core\Actions\ResendMailAction;
+use Basement\BetterMails\Core\DTOs\ResendMailDTO;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -15,7 +15,7 @@ final class SendEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, InteractsWithSockets, Queueable, SerializesModels;
 
-    public function __construct(private readonly ResendDTO $dto) {}
+    public function __construct(private readonly ResendMailDTO $dto) {}
 
     public function handle(ResendMailAction $action): void
     {
