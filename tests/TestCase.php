@@ -3,8 +3,12 @@
 namespace Basement\BetterMails\Tests;
 
 use Basement\BetterMails\FilamentBetterMailsServiceProvider;
+use Basement\BetterMails\Tests\Fixtures\FIlament\AdminPanelProvider;
+use Filament\FilamentServiceProvider;
+use Filament\Support\SupportServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Filesystem\Filesystem;
+use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -54,7 +58,11 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
+            LivewireServiceProvider::class,
+            FilamentServiceProvider::class,
+            SupportServiceProvider::class,
             FilamentBetterMailsServiceProvider::class,
+            AdminPanelProvider::class,
         ];
     }
 }

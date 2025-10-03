@@ -2,16 +2,18 @@
 
 namespace Basement\BetterMails\Core\Models;
 
-use Basement\BetterMails\Core\Enums\MailEventType;
+use Basement\BetterMails\Core\Enums\MailEventTypeEnum;
 use Basement\BetterMails\Database\Factories\BetterMailFactory;
 use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $mail_id
- * @property MailEventType $type
+ * @property MailEventTypeEnum $type
  * @property string|null $ip_address
  * @property string|null $hostname
  * @property string|null $platform
@@ -51,7 +53,7 @@ class BetterEmailEvent extends Model
     ];
 
     protected $casts = [
-        'type' => MailEventType::class,
+        'type' => MailEventTypeEnum::class,
         'payload' => 'object',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -70,5 +72,35 @@ class BetterEmailEvent extends Model
     protected static function newFactory(): BetterMailFactory
     {
         return BetterMailFactory::new();
+    }
+
+    #[Scope]
+    protected function softBounced(Builder $query): Builder
+    {
+        return $query->where('type', MailEventTypeEnum::SoftBounced);
+    }
+
+    #[Scope]
+    protected function hardBounced(Builder $query): Builder
+    {
+        return $query->where('type', MailEventTypeEnum::HardBounced);
+    }
+
+    #[Scope]
+    protected function opened(Builder $query): Builder
+    {
+        return $query->where('type', MailEventTypeEnum::Opened);
+    }
+
+    #[Scope]
+    protected function delivered(Builder $query): Builder
+    {
+        return $query->where('type', MailEventTypeEnum::Delivered);
+    }
+
+    #[Scope]
+    protected function clicked(Builder $query): Builder
+    {
+        return $query->where('type', MailEventTypeEnum::Clicked);
     }
 }

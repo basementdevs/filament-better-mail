@@ -1,7 +1,7 @@
 <?php
 
-use Basement\BetterMails\Core\Enums\MailEventType;
-use Basement\BetterMails\Core\Enums\SupportedMailProviders;
+use Basement\BetterMails\Core\Enums\MailEventTypeEnum;
+use Basement\BetterMails\Core\Enums\SupportedMailProvidersEnum;
 use Basement\BetterMails\Core\Listeners\AfterSendingMailListener;
 use Basement\BetterMails\Core\Models\BetterEmail;
 use Basement\BetterMails\Core\Models\BetterEmailEvent;
@@ -28,7 +28,7 @@ it('should update sent_at when MessageSent is captured', function (): void {
         'cc' => json_encode(['fake@example.com']),
         'bcc' => json_encode(['fake2@example.com']),
         'mail_class' => FakeMail::class,
-        'transport' => SupportedMailProviders::Resend->value,
+        'transport' => SupportedMailProvidersEnum::Resend->value,
         'sent_at' => now(),
     ]);
 });
@@ -43,6 +43,6 @@ it('should register an event after MessageSent', function () {
 
     assertDatabaseHas(BetterEmailEvent::class, [
         'mail_id' => $email->getKey(),
-        'type' => MailEventType::Sent,
+        'type' => MailEventTypeEnum::Sent,
     ]);
 });

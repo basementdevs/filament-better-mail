@@ -71,5 +71,20 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->morphs('mailable');
         });
+
+
+        Schema::create(config('filament-better-mails.mails.database.tables.attachments', 'mail_attachments'), function (Blueprint $table) {
+                    $table->id();
+                    $table->foreignIdFor(config('filament-better-mails.mails.models.mail'),'mail_id')
+                        ->constrained()
+                        ->cascadeOnDelete();
+                    $table->string('disk');
+                    $table->string('uuid');
+                    $table->string('filename');
+                    $table->string('mime');
+                    $table->boolean('inline', false);
+                    $table->bigInteger('size');
+                    $table->timestamps();
+                });
     }
 };

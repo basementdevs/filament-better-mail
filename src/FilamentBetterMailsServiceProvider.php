@@ -28,6 +28,12 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
 
     public function boot(): void
     {
+        $this->loadListeners();
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'basement-better-mails');
+    }
+
+    private function loadListeners(): void
+    {
         Event::listen(MessageSending::class, BeforeSendingMailListener::class);
         Event::listen(MessageSent::class, AfterSendingMailListener::class);
     }

@@ -2,7 +2,7 @@
 
 namespace Basement\BetterMails\Core\Enums;
 
-enum SupportedMailProviders: string
+enum SupportedMailProvidersEnum: string
 {
     case Resend = 'resend';
 }
