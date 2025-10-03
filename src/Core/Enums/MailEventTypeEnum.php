@@ -3,12 +3,12 @@
 namespace Basement\BetterMails\Core\Enums;
 
 use BackedEnum;
+use Filament\Support\Colors\Color;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
-use Termwind\Enums\Color;
 
 enum MailEventTypeEnum: string implements HasColor, HasIcon, HasLabel
 {
@@ -28,15 +28,15 @@ enum MailEventTypeEnum: string implements HasColor, HasIcon, HasLabel
     public function getColor(): string|array|null
     {
         return match ($this) {
-            self::Sent => Color::BLUE,
-            self::Accepted => Color::GREEN,
-            self::Clicked => Color::YELLOW,
-            self::Complained => Color::RED,
-            self::Delivered => Color::YELLOW,
-            self::SoftBounced => Color::RED,
-            self::HardBounced => Color::YELLOW,
-            self::Opened => Color::YELLOW,
-            self::Unsubscribed => Color::RED,
+            self::Sent => Color::Gray,
+            self::Delivered => Color::Blue,
+            self::Accepted => Color::Green,
+            self::Opened => Color::Green,
+            self::Clicked => Color::Teal,
+            self::Complained => Color::Indigo,
+            self::SoftBounced => Color::Red,
+            self::HardBounced => Color::Red,
+            self::Unsubscribed => Color::Gray,
         };
     }
 
