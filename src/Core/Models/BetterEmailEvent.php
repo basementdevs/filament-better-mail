@@ -3,6 +3,7 @@
 namespace Basement\BetterMails\Core\Models;
 
 use Basement\BetterMails\Core\Enums\MailEventTypeEnum;
+use Basement\BetterMails\Database\Factories\BetterEmailEventFactory;
 use Basement\BetterMails\Database\Factories\BetterMailFactory;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Attributes\Scope;
@@ -69,9 +70,9 @@ class BetterEmailEvent extends Model
         return $this->belongsTo(BetterEmail::class, 'mail_id');
     }
 
-    protected static function newFactory(): BetterMailFactory
+    protected static function newFactory(): BetterEmailEventFactory
     {
-        return BetterMailFactory::new();
+        return BetterEmailEventFactory::new();
     }
 
     #[Scope]

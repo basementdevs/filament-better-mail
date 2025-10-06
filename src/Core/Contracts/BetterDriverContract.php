@@ -2,4 +2,7 @@
 
 namespace Basement\BetterMails\Core\Contracts;
 
-interface BetterDriverContract {}
+interface BetterDriverContract
+{
+    public function handle(array $data): void;
+}

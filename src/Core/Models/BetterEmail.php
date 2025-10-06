@@ -2,6 +2,7 @@
 
 namespace Basement\BetterMails\Core\Models;
 
+use Basement\BetterMails\Core\Enums\MailEventTypeEnum;
 use Basement\BetterMails\Database\Factories\BetterMailFactory;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Builder;
@@ -126,6 +127,15 @@ class BetterEmail extends Model
     public function sent(): void
     {
         $this->update(['sent_at' => now()]);
+    }
+
+    public function delivered(): void
+    {
+        $this->update(['delivered_at' => now()]);
+        $this->events()->update([
+            'type' => MailEventTypeEnum::Delivered,
+            'occurred_at' => now(),
+        ]);
     }
 
     protected static function newFactory(): BetterMailFactory

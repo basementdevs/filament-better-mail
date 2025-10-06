@@ -55,4 +55,11 @@ class BetterMailFactory extends Factory
             ],
         ]);
     }
+
+    public function withDriver(SupportedMailProvidersEnum $transport): static
+    {
+        return $this->state(fn () => [
+            'transport' => $transport,
+        ]);
+    }
 }

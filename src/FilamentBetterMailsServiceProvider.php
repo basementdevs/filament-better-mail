@@ -2,6 +2,9 @@
 
 namespace Basement\BetterMails;
 
+use Basement\BetterMails\Core\Contracts\BetterDriverContract;
+use Basement\BetterMails\Core\Contracts\BetterDTOContract;
+use Basement\BetterMails\Core\Contracts\BetterMiddlewareContract;
 use Basement\BetterMails\Core\Listeners\AfterSendingMailListener;
 use Basement\BetterMails\Core\Listeners\BeforeSendingMailListener;
 use Illuminate\Mail\Events\MessageSending;
@@ -26,15 +29,35 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
             ->discoversMigrations();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function boot(): void
     {
         $this->loadListeners();
+        $this->loadProviderConfig();
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'basement-better-mails');
+        $this->loadRoutesFrom(__DIR__.'/../routes/filament-better-mails-route.php');
     }
 
     private function loadListeners(): void
     {
         Event::listen(MessageSending::class, BeforeSendingMailListener::class);
         Event::listen(MessageSent::class, AfterSendingMailListener::class);
+    }
+
+    private function loadProviderConfig(): void
+    {
+        $provider = config('filament-better-mails.webhooks.provider');
+
+
+        $config = config("filament-better-mails.webhooks.drivers.{$provider}");
+
+        if (! $config) {
+            throw new \Exception('Invalid provider configuration');
+        }
+
+        $this->app->bind(BetterDriverContract::class, $config['driver']);
+        $this->app->bind(BetterMiddlewareContract::class, $config['middleware']);
     }
 }
