@@ -6,6 +6,16 @@ use Basement\BetterMails\Core\Contracts\BetterDriverContract;
 use Basement\BetterMails\Core\Contracts\BetterMiddlewareContract;
 use Basement\BetterMails\Core\Listeners\AfterSendingMailListener;
 use Basement\BetterMails\Core\Listeners\BeforeSendingMailListener;
+use Basement\BetterMails\Core\Listeners\External\ClickedMailListener;
+use Basement\BetterMails\Core\Listeners\External\ComplainedMailListener;
+use Basement\BetterMails\Core\Listeners\External\DeliveredMailListener;
+use Basement\BetterMails\Core\Listeners\External\HardBouncedMailListener;
+use Basement\BetterMails\Core\Listeners\External\OpenedMailListener;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailClickedEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailComplainedEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailDeliveredEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailHardBouncedEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailOpenedEvent;
 use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Mail\Events\MessageSent;
 use Illuminate\Support\Facades\Event;
@@ -34,6 +44,7 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
     public function boot(): void
     {
         $this->loadListeners();
+        $this->loadResendListeners();
         $this->loadProviderConfig();
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'basement-better-mails');
         $this->loadRoutesFrom(__DIR__.'/../routes/filament-better-mails-route.php');
@@ -57,5 +68,14 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
 
         $this->app->bind(BetterDriverContract::class, $config['driver']);
         $this->app->bind(BetterMiddlewareContract::class, $config['middleware']);
+    }
+
+    private function loadResendListeners(): void
+    {
+        Event::listen(ResendEmailDeliveredEvent::class, DeliveredMailListener::class);
+        Event::listen(ResendEmailOpenedEvent::class, OpenedMailListener::class);
+        Event::listen(ResendEmailClickedEvent::class, ClickedMailListener::class);
+        Event::listen(ResendEmailComplainedEvent::class, ComplainedMailListener::class);
+        Event::listen(ResendEmailHardBouncedEvent::class, HardBouncedMailListener::class);
     }
 }

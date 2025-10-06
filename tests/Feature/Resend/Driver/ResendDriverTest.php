@@ -29,7 +29,7 @@ it('should be able to update the emails status to delivered via webhook', functi
         ]),
         ResendWebhookDataProvider::withMailEvent(
             uuid: $this->uuid,
-            event: ResendEventsEnum::Email_Delivered
+            event: ResendEventsEnum::EmailDelivered
         )
     );
 
@@ -53,7 +53,7 @@ it('should be able to update email status to complained', function () {
         ]),
         ResendWebhookDataProvider::withMailEvent(
             uuid: $this->uuid,
-            event: ResendEventsEnum::Email_Complained
+            event: ResendEventsEnum::EmailComplained
         )
     );
 
@@ -80,7 +80,7 @@ it('should be able to update email status to clicked', function () {
         ]),
         ResendWebhookDataProvider::withMailEvent(
             uuid: $this->uuid,
-            event: ResendEventsEnum::Email_Clicked
+            event: ResendEventsEnum::EmailClicked
         )
     );
 
@@ -108,7 +108,7 @@ it('should be able to update email status to opened', function () {
         ]),
         ResendWebhookDataProvider::withMailEvent(
             uuid: $this->uuid,
-            event: ResendEventsEnum::Email_Opened
+            event: ResendEventsEnum::EmailOpened
         )
     );
 
@@ -137,7 +137,7 @@ it('should be able to update email status to bounced', function () {
         ]),
         ResendWebhookDataProvider::withMailEvent(
             uuid: $this->uuid,
-            event: ResendEventsEnum::Email_Bounced
+            event: ResendEventsEnum::EmailBounced
         )
     );
 
@@ -146,11 +146,11 @@ it('should be able to update email status to bounced', function () {
     $this->mail->refresh();
 
     expect($this->mail->events->first()->type->value)
-        ->toBe(MailEventTypeEnum::SoftBounced->value);
+        ->toBe(MailEventTypeEnum::HardBounced->value);
 
     assertDatabaseHas(BetterEmail::class, [
         'uuid' => $this->mail->uuid,
-        'soft_bounced_at' => now(),
+        'hard_bounced_at' => now(),
     ]);
 
     assertDatabaseHas(BetterEmailEvent::class, [

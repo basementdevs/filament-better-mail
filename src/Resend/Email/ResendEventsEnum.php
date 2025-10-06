@@ -4,13 +4,13 @@ namespace Basement\BetterMails\Resend\Email;
 
 enum ResendEventsEnum: string
 {
-    case Email_Sent = 'email.sent';
-    case Email_Delivered = 'email.delivered';
-    case Email_Delivery_Delayed = 'email.delivery_delayed';
-    case Email_Complained = 'email.complained';
-    case Email_Bounced = 'email.bounced';
-    case Email_Opened = 'email.opened';
-    case Email_Clicked = 'email.clicked';
-    case Email_Received = 'email.received';
-    case Email_Failed = 'email.failed';
+    case EmailSent = 'email.sent';
+    case EmailDelivered = 'email.delivered';
+    case EmailDeliveryDelayed = 'email.delivery_delayed';
+    case EmailComplained = 'email.complained';
+    case EmailBounced = 'email.bounced';
+    case EmailOpened = 'email.opened';
+    case EmailClicked = 'email.clicked';
+    case EmailReceived = 'email.received';
+    case EmailFailed = 'email.failed';
 }

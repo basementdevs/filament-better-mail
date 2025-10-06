@@ -4,9 +4,16 @@ namespace Basement\BetterMails\Resend;
 
 use Basement\BetterMails\Core\AbstractMailDriver;
 use Basement\BetterMails\Core\Contracts\BetterDriverContract;
-use Basement\BetterMails\Core\Enums\SupportedMailProvidersEnum;
-use Basement\BetterMails\Core\Models\BetterEmail;
 use Basement\BetterMails\Resend\Email\DTOs\ResendWebhookReceivedDTO;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailClickedEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailComplainedEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailDeliveredEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailDeliveryDelayedEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailFailedEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailHardBouncedEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailOpenedEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailReceivedEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailSentEvent;
 use Basement\BetterMails\Resend\Email\ResendEventsEnum;
 
 final class ResendDriver extends AbstractMailDriver implements BetterDriverContract
@@ -17,50 +24,16 @@ final class ResendDriver extends AbstractMailDriver implements BetterDriverContr
     public function handle(array $data): void
     {
         $dto = ResendWebhookReceivedDTO::fromWebhook($data);
-        $mail = $this->findMail($dto->mailUuid);
-
         match ($dto->event) {
-            ResendEventsEnum::Email_Sent => null,
-            ResendEventsEnum::Email_Delivered => $this->mailDelivered($mail),
-            ResendEventsEnum::Email_Delivery_Delayed => throw new \Exception('To be implemented'),
-            ResendEventsEnum::Email_Complained => $this->mailComplained($mail),
-            ResendEventsEnum::Email_Bounced => $this->softBounced($mail),
-            ResendEventsEnum::Email_Opened => $this->mailOpened($mail),
-            ResendEventsEnum::Email_Clicked => $this->mailClicked($mail),
-            ResendEventsEnum::Email_Received => throw new \Exception('To be implemented'),
-            ResendEventsEnum::Email_Failed => throw new \Exception('To be implemented'),
+            ResendEventsEnum::EmailSent => ResendEmailSentEvent::dispatch(ResendWebhookReceivedDTO::fromEmailSent($dto->jsonSerialize())),
+            ResendEventsEnum::EmailDelivered => ResendEmailDeliveredEvent::dispatch(ResendWebhookReceivedDTO::fromEmailDelivered($dto->jsonSerialize())),
+            ResendEventsEnum::EmailDeliveryDelayed => ResendEmailDeliveryDelayedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailDeliveredDelayed($dto->jsonSerialize())),
+            ResendEventsEnum::EmailComplained => ResendEmailComplainedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailComplained($dto->jsonSerialize())),
+            ResendEventsEnum::EmailBounced => ResendEmailHardBouncedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailBounced($dto->jsonSerialize())),
+            ResendEventsEnum::EmailOpened => ResendEmailOpenedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailOpened($dto->jsonSerialize())),
+            ResendEventsEnum::EmailClicked => ResendEmailClickedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailClicked($dto->jsonSerialize())),
+            ResendEventsEnum::EmailReceived => ResendEmailReceivedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailRecieved($dto->jsonSerialize())),
+            ResendEventsEnum::EmailFailed => ResendEmailFailedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailFailed($dto->jsonSerialize())),
         };
-    }
-
-    private function mailDelivered(BetterEmail $mail): void
-    {
-        $mail->delivered();
-    }
-
-    private function mailOpened(BetterEmail $mail): void
-    {
-        $mail->opened();
-    }
-
-    private function mailClicked(BetterEmail $mail): void
-    {
-        $mail->clicked();
-    }
-
-    private function mailComplained(BetterEmail $mail): void
-    {
-        $mail->complained();
-    }
-
-    private function softBounced(BetterEmail $mail): void
-    {
-        $mail->softBounced();
-    }
-
-    private function findMail(string $mailUuid): BetterEmail
-    {
-        return BetterEmail::query()
-            ->where('transport', SupportedMailProvidersEnum::Resend)
-            ->where('uuid', $mailUuid)->firstOrFail();
     }
 }
