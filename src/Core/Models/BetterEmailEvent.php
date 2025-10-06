@@ -4,7 +4,6 @@ namespace Basement\BetterMails\Core\Models;
 
 use Basement\BetterMails\Core\Enums\MailEventTypeEnum;
 use Basement\BetterMails\Database\Factories\BetterEmailEventFactory;
-use Basement\BetterMails\Database\Factories\BetterMailFactory;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;

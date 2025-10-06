@@ -3,7 +3,6 @@
 use Basement\BetterMails\Core\Enums\SupportedMailProvidersEnum;
 use Basement\BetterMails\Tests\Feature\Resend\Exceptions\ResendException;
 
-
 use function Pest\Laravel\postJson;
 use function Pest\Laravel\withoutExceptionHandling;
 

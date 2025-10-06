@@ -180,7 +180,6 @@ class BetterEmail extends Model
         ]);
     }
 
-
     protected static function newFactory(): BetterMailFactory
     {
         return BetterMailFactory::new();

@@ -4,7 +4,6 @@ namespace Basement\BetterMails\Resend;
 
 use Basement\BetterMails\Core\AbstractMailDriver;
 use Basement\BetterMails\Core\Contracts\BetterDriverContract;
-use Basement\BetterMails\Core\Contracts\BetterDTOContract;
 use Basement\BetterMails\Core\Enums\SupportedMailProvidersEnum;
 use Basement\BetterMails\Core\Models\BetterEmail;
 use Basement\BetterMails\Resend\Email\DTOs\ResendWebhookReceivedDTO;
@@ -38,7 +37,6 @@ final class ResendDriver extends AbstractMailDriver implements BetterDriverContr
         $mail->delivered();
     }
 
-
     private function mailOpened(BetterEmail $mail): void
     {
         $mail->opened();
@@ -48,14 +46,17 @@ final class ResendDriver extends AbstractMailDriver implements BetterDriverContr
     {
         $mail->clicked();
     }
+
     private function mailComplained(BetterEmail $mail): void
     {
         $mail->complained();
     }
+
     private function softBounced(BetterEmail $mail): void
     {
         $mail->softBounced();
     }
+
     private function findMail(string $mailUuid): BetterEmail
     {
         return BetterEmail::query()

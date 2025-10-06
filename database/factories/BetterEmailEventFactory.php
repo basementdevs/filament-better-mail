@@ -19,6 +19,7 @@ final class BetterEmailEventFactory extends Factory
             'payload' => [],
         ];
     }
+
     public function withEvent(MailEventTypeEnum $type): Factory
     {
         return $this->state(fn () => [

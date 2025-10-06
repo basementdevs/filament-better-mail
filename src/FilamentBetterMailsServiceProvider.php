@@ -3,7 +3,6 @@
 namespace Basement\BetterMails;
 
 use Basement\BetterMails\Core\Contracts\BetterDriverContract;
-use Basement\BetterMails\Core\Contracts\BetterDTOContract;
 use Basement\BetterMails\Core\Contracts\BetterMiddlewareContract;
 use Basement\BetterMails\Core\Listeners\AfterSendingMailListener;
 use Basement\BetterMails\Core\Listeners\BeforeSendingMailListener;
@@ -49,7 +48,6 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
     private function loadProviderConfig(): void
     {
         $provider = config('filament-better-mails.webhooks.provider');
-
 
         $config = config("filament-better-mails.webhooks.drivers.{$provider}");
 
