@@ -179,6 +179,7 @@ class BetterEmail extends Model
             'occurred_at' => now(),
         ]);
     }
+
     public function hardBounced(): void
     {
         $this->update(['hard_bounced_at' => now()]);

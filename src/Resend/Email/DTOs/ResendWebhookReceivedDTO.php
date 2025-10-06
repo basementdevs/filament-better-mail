@@ -70,6 +70,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
             payload: $dto,
         );
     }
+
     public static function fromEmailBounced(array $dto): self
     {
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
@@ -80,6 +81,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
             payload: $dto,
         );
     }
+
     public static function fromEmailOpened(array $dto): self
     {
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
@@ -90,6 +92,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
             payload: $dto,
         );
     }
+
     public static function fromEmailClicked(array $dto): self
     {
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
@@ -100,6 +103,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
             payload: $dto,
         );
     }
+
     public static function fromEmailRecieved(array $dto): self
     {
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
@@ -110,6 +114,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
             payload: $dto,
         );
     }
+
     public static function fromEmailFailed(array $dto): self
     {
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
