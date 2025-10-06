@@ -24,10 +24,10 @@ final class ResendDriver extends AbstractMailDriver implements BetterDriverContr
             ResendEventsEnum::Email_Sent => null,
             ResendEventsEnum::Email_Delivered => $this->mailDelivered($mail),
             ResendEventsEnum::Email_Delivery_Delayed => throw new \Exception('To be implemented'),
-            ResendEventsEnum::Email_Complained => throw new \Exception('To be implemented'),
-            ResendEventsEnum::Email_Bounced => throw new \Exception('To be implemented'),
-            ResendEventsEnum::Email_Opened => throw new \Exception('To be implemented'),
-            ResendEventsEnum::Email_Clicked => throw new \Exception('To be implemented'),
+            ResendEventsEnum::Email_Complained => $this->mailComplained($mail),
+            ResendEventsEnum::Email_Bounced => $this->softBounced($mail),
+            ResendEventsEnum::Email_Opened => $this->mailOpened($mail),
+            ResendEventsEnum::Email_Clicked => $this->mailClicked($mail),
             ResendEventsEnum::Email_Received => throw new \Exception('To be implemented'),
             ResendEventsEnum::Email_Failed => throw new \Exception('To be implemented'),
         };
@@ -38,6 +38,24 @@ final class ResendDriver extends AbstractMailDriver implements BetterDriverContr
         $mail->delivered();
     }
 
+
+    private function mailOpened(BetterEmail $mail): void
+    {
+        $mail->opened();
+    }
+
+    private function mailClicked(BetterEmail $mail): void
+    {
+        $mail->clicked();
+    }
+    private function mailComplained(BetterEmail $mail): void
+    {
+        $mail->complained();
+    }
+    private function softBounced(BetterEmail $mail): void
+    {
+        $mail->softBounced();
+    }
     private function findMail(string $mailUuid): BetterEmail
     {
         return BetterEmail::query()

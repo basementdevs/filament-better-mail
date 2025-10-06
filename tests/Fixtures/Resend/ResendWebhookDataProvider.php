@@ -2,9 +2,11 @@
 
 namespace Basement\BetterMails\Tests\Fixtures\Resend;
 
+use Basement\BetterMails\Resend\Email\ResendEventsEnum;
+
 class ResendWebhookDataProvider
 {
-    public static function mailSent(string $uuid): array
+    public static function withMailEvent(string $uuid, ResendEventsEnum $event): array
     {
         return [
             'data' => [
@@ -22,7 +24,7 @@ class ResendWebhookDataProvider
                     'delivered@resend.dev',
                 ]
             ],
-            'type' => 'email.delivered',
+            'type' => $event->value,
         ];
     }
 }

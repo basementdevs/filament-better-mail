@@ -138,6 +138,49 @@ class BetterEmail extends Model
         ]);
     }
 
+    public function opened(): void
+    {
+        $this->update([
+            'last_opened_at' => now(),
+            'opens' => $this->opens + 1,
+        ]);
+        $this->events()->update([
+            'type' => MailEventTypeEnum::Opened,
+            'occurred_at' => now(),
+        ]);
+    }
+
+    public function clicked(): void
+    {
+        $this->update([
+            'last_clicked_at' => now(),
+            'clicks' => $this->clicks + 1,
+        ]);
+        $this->events()->update([
+            'type' => MailEventTypeEnum::Clicked,
+            'occurred_at' => now(),
+        ]);
+    }
+
+    public function complained(): void
+    {
+        $this->update(['complained_at' => now()]);
+        $this->events()->update([
+            'type' => MailEventTypeEnum::Complained,
+            'occurred_at' => now(),
+        ]);
+    }
+
+    public function softBounced(): void
+    {
+        $this->update(['soft_bounced_at' => now()]);
+        $this->events()->update([
+            'type' => MailEventTypeEnum::SoftBounced,
+            'occurred_at' => now(),
+        ]);
+    }
+
+
     protected static function newFactory(): BetterMailFactory
     {
         return BetterMailFactory::new();
