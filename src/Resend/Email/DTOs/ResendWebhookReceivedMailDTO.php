@@ -4,12 +4,12 @@ namespace Basement\BetterMails\Resend\Email\DTOs;
 
 // TODO: implement interface
 
-use Basement\BetterMails\Core\Contracts\BetterDTOContract;
+use Basement\BetterMails\Core\Contracts\BetterMailDTOContract;
 use Basement\BetterMails\Resend\Email\ResendEventsEnum;
 use JsonSerializable;
 use Ramsey\Uuid\Uuid;
 
-final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, JsonSerializable
+final readonly class ResendWebhookReceivedMailDTO implements BetterMailDTOContract, JsonSerializable
 {
     public function __construct(
         public string $id,

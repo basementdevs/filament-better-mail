@@ -4,7 +4,7 @@ namespace Basement\BetterMails\Resend\Email\Middleware;
 
 use Basement\BetterMails\Core\Contracts\BetterMiddlewareContract;
 use Basement\BetterMails\Core\Exceptions\MailException;
-use Basement\BetterMails\Core\Http\Middlewares\AbstractMailMiddleware;
+use Basement\BetterMails\Core\Http\Middleware\AbstractMailMiddleware;
 use Closure;
 use Illuminate\Http\Request;
 

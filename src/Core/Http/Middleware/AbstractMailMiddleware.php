@@ -1,6 +1,6 @@
 <?php
 
-namespace Basement\BetterMails\Core\Http\Middlewares;
+namespace Basement\BetterMails\Core\Http\Middleware;
 
 use Basement\BetterMails\Core\Contracts\BetterMiddlewareContract;
 use Basement\BetterMails\Core\Exceptions\MailException;

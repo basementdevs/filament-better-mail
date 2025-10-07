@@ -2,7 +2,7 @@
 
 namespace Basement\BetterMails\Core\Contracts;
 
-interface BetterDTOContract
+interface BetterMailDTOContract
 {
     public static function fromWebhook(array $dto): self;
 }

@@ -4,7 +4,7 @@ namespace Basement\BetterMails\Resend;
 
 use Basement\BetterMails\Core\AbstractMailDriver;
 use Basement\BetterMails\Core\Contracts\BetterDriverContract;
-use Basement\BetterMails\Resend\Email\DTOs\ResendWebhookReceivedDTO;
+use Basement\BetterMails\Resend\Email\DTOs\ResendWebhookReceivedMailDTO;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailClickedEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailComplainedEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailDeliveredEvent;
@@ -23,17 +23,17 @@ final class ResendDriver extends AbstractMailDriver implements BetterDriverContr
     // TODO: implement audience() method
     public function handle(array $data): void
     {
-        $dto = ResendWebhookReceivedDTO::fromWebhook($data);
+        $dto = ResendWebhookReceivedMailDTO::fromWebhook($data);
         match ($dto->event) {
-            ResendEventsEnum::EmailSent => ResendEmailSentEvent::dispatch(ResendWebhookReceivedDTO::fromEmailSent($dto->jsonSerialize())),
-            ResendEventsEnum::EmailDelivered => ResendEmailDeliveredEvent::dispatch(ResendWebhookReceivedDTO::fromEmailDelivered($dto->jsonSerialize())),
-            ResendEventsEnum::EmailDeliveryDelayed => ResendEmailDeliveryDelayedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailDeliveredDelayed($dto->jsonSerialize())),
-            ResendEventsEnum::EmailComplained => ResendEmailComplainedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailComplained($dto->jsonSerialize())),
-            ResendEventsEnum::EmailBounced => ResendEmailHardBouncedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailBounced($dto->jsonSerialize())),
-            ResendEventsEnum::EmailOpened => ResendEmailOpenedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailOpened($dto->jsonSerialize())),
-            ResendEventsEnum::EmailClicked => ResendEmailClickedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailClicked($dto->jsonSerialize())),
-            ResendEventsEnum::EmailReceived => ResendEmailReceivedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailRecieved($dto->jsonSerialize())),
-            ResendEventsEnum::EmailFailed => ResendEmailFailedEvent::dispatch(ResendWebhookReceivedDTO::fromEmailFailed($dto->jsonSerialize())),
+            ResendEventsEnum::EmailSent => ResendEmailSentEvent::dispatch(ResendWebhookReceivedMailDTO::fromEmailSent($dto->jsonSerialize())),
+            ResendEventsEnum::EmailDelivered => ResendEmailDeliveredEvent::dispatch(ResendWebhookReceivedMailDTO::fromEmailDelivered($dto->jsonSerialize())),
+            ResendEventsEnum::EmailDeliveryDelayed => ResendEmailDeliveryDelayedEvent::dispatch(ResendWebhookReceivedMailDTO::fromEmailDeliveredDelayed($dto->jsonSerialize())),
+            ResendEventsEnum::EmailComplained => ResendEmailComplainedEvent::dispatch(ResendWebhookReceivedMailDTO::fromEmailComplained($dto->jsonSerialize())),
+            ResendEventsEnum::EmailBounced => ResendEmailHardBouncedEvent::dispatch(ResendWebhookReceivedMailDTO::fromEmailBounced($dto->jsonSerialize())),
+            ResendEventsEnum::EmailOpened => ResendEmailOpenedEvent::dispatch(ResendWebhookReceivedMailDTO::fromEmailOpened($dto->jsonSerialize())),
+            ResendEventsEnum::EmailClicked => ResendEmailClickedEvent::dispatch(ResendWebhookReceivedMailDTO::fromEmailClicked($dto->jsonSerialize())),
+            ResendEventsEnum::EmailReceived => ResendEmailReceivedEvent::dispatch(ResendWebhookReceivedMailDTO::fromEmailRecieved($dto->jsonSerialize())),
+            ResendEventsEnum::EmailFailed => ResendEmailFailedEvent::dispatch(ResendWebhookReceivedMailDTO::fromEmailFailed($dto->jsonSerialize())),
         };
     }
 }
