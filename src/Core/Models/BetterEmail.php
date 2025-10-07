@@ -117,6 +117,7 @@ class BetterEmail extends Model
     {
         return $this->hasOne(BetterEmailEvent::class, 'mail_id')->latestOfMany('occurred_at');
     }
+
     public function attachments(): HasMany
     {
         return $this->hasMany(config('filament-better-mails.mails.models.attachment'), 'mail_id');
