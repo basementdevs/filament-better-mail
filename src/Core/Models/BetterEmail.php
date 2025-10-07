@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int|null $id
@@ -112,6 +113,10 @@ class BetterEmail extends Model
         return static::query()->where('created_at', '<=', now()->subDays($pruneAfter));
     }
 
+    public function latestEvent(): HasOne
+    {
+        return $this->hasOne(BetterEmailEvent::class, 'mail_id')->latestOfMany('occurred_at');
+    }
     public function attachments(): HasMany
     {
         return $this->hasMany(config('filament-better-mails.mails.models.attachment'), 'mail_id');
@@ -132,7 +137,7 @@ class BetterEmail extends Model
     public function delivered(): void
     {
         $this->update(['delivered_at' => now()]);
-        $this->events()->update([
+        $this->events()->create([
             'type' => MailEventTypeEnum::Delivered,
             'occurred_at' => now(),
         ]);
@@ -144,7 +149,7 @@ class BetterEmail extends Model
             'last_opened_at' => now(),
             'opens' => $this->opens + 1,
         ]);
-        $this->events()->update([
+        $this->events()->create([
             'type' => MailEventTypeEnum::Opened,
             'occurred_at' => now(),
         ]);
@@ -156,7 +161,7 @@ class BetterEmail extends Model
             'last_clicked_at' => now(),
             'clicks' => $this->clicks + 1,
         ]);
-        $this->events()->update([
+        $this->events()->create([
             'type' => MailEventTypeEnum::Clicked,
             'occurred_at' => now(),
         ]);
@@ -165,7 +170,7 @@ class BetterEmail extends Model
     public function complained(): void
     {
         $this->update(['complained_at' => now()]);
-        $this->events()->update([
+        $this->events()->create([
             'type' => MailEventTypeEnum::Complained,
             'occurred_at' => now(),
         ]);
@@ -174,7 +179,7 @@ class BetterEmail extends Model
     public function softBounced(): void
     {
         $this->update(['soft_bounced_at' => now()]);
-        $this->events()->update([
+        $this->events()->create([
             'type' => MailEventTypeEnum::SoftBounced,
             'occurred_at' => now(),
         ]);
@@ -183,7 +188,7 @@ class BetterEmail extends Model
     public function hardBounced(): void
     {
         $this->update(['hard_bounced_at' => now()]);
-        $this->events()->update([
+        $this->events()->create([
             'type' => MailEventTypeEnum::HardBounced,
             'occurred_at' => now(),
         ]);

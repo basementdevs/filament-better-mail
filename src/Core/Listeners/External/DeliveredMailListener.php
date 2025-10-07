@@ -11,7 +11,7 @@ final class DeliveredMailListener
 
     public function handle(DeliveredEventContract $event): void
     {
-        $mail = $this->findMail($event->dto->mailUuid);
+        $mail = $this->findMail($event->dto->id);
         $mail->delivered();
     }
 }

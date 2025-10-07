@@ -11,7 +11,7 @@ final class HardBouncedMailListener
 
     public function handle(HardBouncedEventContract $event): void
     {
-        $mail = $this->findMail($event->dto->mailUuid);
+        $mail = $this->findMail($event->dto->id);
         $mail->hardBounced();
     }
 }

@@ -11,7 +11,7 @@ final class ComplainedMailListener
 
     public function handle(ComplainedEventContract $event): void
     {
-        $mail = $this->findMail($event->dto->mailUuid);
+        $mail = $this->findMail($event->dto->id);
         $mail->complained();
     }
 }

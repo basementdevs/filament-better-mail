@@ -11,7 +11,7 @@ final class ClickedMailListener
 
     public function handle(ClickedEventContract $event): void
     {
-        $mail = $this->findMail($event->dto->mailUuid);
+        $mail = $this->findMail($event->dto->id);
         $mail->clicked();
     }
 }

@@ -77,30 +77,30 @@ class BetterEmailEvent extends Model
     #[Scope]
     protected function softBounced(Builder $query): Builder
     {
-        return $query->where('type', MailEventTypeEnum::SoftBounced);
+        return $query->where('type', MailEventTypeEnum::SoftBounced)->latest();
     }
 
     #[Scope]
     protected function hardBounced(Builder $query): Builder
     {
-        return $query->where('type', MailEventTypeEnum::HardBounced);
+        return $query->where('type', MailEventTypeEnum::HardBounced)->latest();
     }
 
     #[Scope]
     protected function opened(Builder $query): Builder
     {
-        return $query->where('type', MailEventTypeEnum::Opened);
+        return $query->where('type', MailEventTypeEnum::Opened)->latest();
     }
 
     #[Scope]
     protected function delivered(Builder $query): Builder
     {
-        return $query->where('type', MailEventTypeEnum::Delivered);
+        return $query->where('type', MailEventTypeEnum::Delivered)->latest();
     }
 
     #[Scope]
     protected function clicked(Builder $query): Builder
     {
-        return $query->where('type', MailEventTypeEnum::Clicked);
+        return $query->where('type', MailEventTypeEnum::Clicked)->latest();
     }
 }

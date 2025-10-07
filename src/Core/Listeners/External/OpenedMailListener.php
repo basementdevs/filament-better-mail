@@ -11,7 +11,7 @@ final class OpenedMailListener
 
     public function handle(OpenedEventContract $event): void
     {
-        $mail = $this->findMail($event->dto->mailUuid);
+        $mail = $this->findMail($event->dto->id);
         $mail->opened();
     }
 }

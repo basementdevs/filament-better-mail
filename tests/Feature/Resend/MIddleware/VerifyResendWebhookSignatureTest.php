@@ -1,7 +1,7 @@
 <?php
 
 use Basement\BetterMails\Core\Enums\SupportedMailProvidersEnum;
-use Basement\BetterMails\Tests\Feature\Resend\Exceptions\ResendException;
+use Basement\BetterMails\Core\Exceptions\MailException;
 
 use function Pest\Laravel\postJson;
 use function Pest\Laravel\withoutExceptionHandling;
@@ -28,7 +28,7 @@ it('should throw exception if mail header was not sent', function (): void {
     ]);
 
 })->throws(
-    ResendException::class,
+    MailException::class,
     'Uuid mail signature not found on body request',
     403
 );

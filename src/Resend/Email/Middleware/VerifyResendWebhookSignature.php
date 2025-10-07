@@ -3,31 +3,21 @@
 namespace Basement\BetterMails\Resend\Email\Middleware;
 
 use Basement\BetterMails\Core\Contracts\BetterMiddlewareContract;
-use Basement\BetterMails\Tests\Feature\Resend\Exceptions\ResendException;
+use Basement\BetterMails\Core\Exceptions\MailException;
+use Basement\BetterMails\Core\Http\Middlewares\AbstractMailMiddleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class VerifyResendWebhookSignature implements BetterMiddlewareContract
+class VerifyResendWebhookSignature extends AbstractMailMiddleware implements BetterMiddlewareContract
 {
     /**
-     * @throws ResendException
+     * @throws MailException
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         $headers = $request->input('data.headers');
 
-        $mailUuid = null;
-
-        foreach ($headers as $header) {
-
-            if ($header['name'] == config('filament-better-mails.mails.headers.key')) {
-                $mailUuid = $header['value'];
-                break;
-            }
-        }
-        if (! $mailUuid) {
-            throw ResendException::missingUuidHeader('Uuid mail signature not found on body request');
-        }
+        parent::validateHeaderKey($headers, 'name', 'value');
 
         // implementar a secret key colocar no env e config do proprio resend
         // config('filament-better-mails.webhooks.drivers.resend.key_secret');

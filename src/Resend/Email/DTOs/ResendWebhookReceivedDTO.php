@@ -7,11 +7,12 @@ namespace Basement\BetterMails\Resend\Email\DTOs;
 use Basement\BetterMails\Core\Contracts\BetterDTOContract;
 use Basement\BetterMails\Resend\Email\ResendEventsEnum;
 use JsonSerializable;
+use Ramsey\Uuid\Uuid;
 
 final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, JsonSerializable
 {
     public function __construct(
-        public string $mailUuid,
+        public string $id,
         public ResendEventsEnum $event,
         public ?array $payload,
     ) {}
@@ -21,7 +22,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
         $mailUuid = $dto['data']['headers'][0]['value'];
 
         return new self(
-            mailUuid: $mailUuid,
+            id: Uuid::fromString($mailUuid),
             event: ResendEventsEnum::tryFrom($dto['type']),
             payload: $dto,
         );
@@ -32,7 +33,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
 
         return new self(
-            mailUuid: $mailUuid,
+            id: Uuid::fromString($mailUuid),
             event: ResendEventsEnum::tryFrom($dto['type']),
             payload: $dto,
         );
@@ -43,7 +44,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
 
         return new self(
-            mailUuid: $mailUuid,
+            id: Uuid::fromString($mailUuid),
             event: ResendEventsEnum::tryFrom($dto['type']),
             payload: $dto,
         );
@@ -54,7 +55,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
 
         return new self(
-            mailUuid: $mailUuid,
+            id: Uuid::fromString($mailUuid),
             event: ResendEventsEnum::tryFrom($dto['type']),
             payload: $dto,
         );
@@ -65,7 +66,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
 
         return new self(
-            mailUuid: $mailUuid,
+            id: Uuid::fromString($mailUuid),
             event: ResendEventsEnum::tryFrom($dto['type']),
             payload: $dto,
         );
@@ -76,7 +77,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
 
         return new self(
-            mailUuid: $mailUuid,
+            id: Uuid::fromString($mailUuid),
             event: ResendEventsEnum::tryFrom($dto['type']),
             payload: $dto,
         );
@@ -87,7 +88,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
 
         return new self(
-            mailUuid: $mailUuid,
+            id: Uuid::fromString($mailUuid),
             event: ResendEventsEnum::tryFrom($dto['type']),
             payload: $dto,
         );
@@ -98,7 +99,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
 
         return new self(
-            mailUuid: $mailUuid,
+            id: Uuid::fromString($mailUuid),
             event: ResendEventsEnum::tryFrom($dto['type']),
             payload: $dto,
         );
@@ -109,7 +110,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
 
         return new self(
-            mailUuid: $mailUuid,
+            id: Uuid::fromString($mailUuid),
             event: ResendEventsEnum::tryFrom($dto['type']),
             payload: $dto,
         );
@@ -120,7 +121,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
         $mailUuid = $dto['data']['headers'][0]['value'] ?? $dto['mailUuid'];
 
         return new self(
-            mailUuid: $mailUuid,
+            id: Uuid::fromString($mailUuid),
             event: ResendEventsEnum::tryFrom($dto['type']),
             payload: $dto,
         );
@@ -129,7 +130,7 @@ final readonly class ResendWebhookReceivedDTO implements BetterDTOContract, Json
     public function jsonSerialize(): array
     {
         return [
-            'mailUuid' => $this->mailUuid,
+            'mailUuid' => $this->id,
             'type' => $this->event->value,
             'payload' => $this->payload,
         ];
