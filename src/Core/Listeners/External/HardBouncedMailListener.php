@@ -9,6 +9,7 @@ use Basement\BetterMails\Core\Models\BetterEmail;
 final class HardBouncedMailListener
 {
     use HasMail;
+
     public function handle(HardBouncedEventContract $event): void
     {
         $mail = $this->findMail($event->dto->mailUuid);

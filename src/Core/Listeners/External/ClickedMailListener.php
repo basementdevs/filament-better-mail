@@ -8,6 +8,7 @@ use Basement\BetterMails\Core\Contracts\External\ClickedEventContract;
 final class ClickedMailListener
 {
     use HasMail;
+
     public function handle(ClickedEventContract $event): void
     {
         $mail = $this->findMail($event->dto->mailUuid);

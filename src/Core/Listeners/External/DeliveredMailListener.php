@@ -8,6 +8,7 @@ use Basement\BetterMails\Core\Contracts\External\DeliveredEventContract;
 final class DeliveredMailListener
 {
     use HasMail;
+
     public function handle(DeliveredEventContract $event): void
     {
         $mail = $this->findMail($event->dto->mailUuid);
