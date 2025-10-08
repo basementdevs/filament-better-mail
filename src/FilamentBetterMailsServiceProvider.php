@@ -72,7 +72,6 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
         }
 
         $this->app->bind(BetterDriverContract::class, $config['driver']);
-        $this->app->bind(BetterMiddlewareContract::class, $config['middleware']);
     }
 
     private function loadResendListeners(): void

@@ -8,6 +8,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/webhook/{provider}', WebhookController::class)
     ->whereIn('provider', SupportedMailProvidersEnum::cases())
-    ->middleware([BetterMiddlewareContract::class])
     ->withoutMiddleware(VerifyCsrfToken::class)
     ->name('filament-better-mails.webhook.store');
