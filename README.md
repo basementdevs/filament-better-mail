@@ -5,15 +5,20 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/basementdevs/filament-better-mails/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/basementdevs/filament-better-mails/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/basementdevs/filament-better-mails.svg?style=flat-square)](https://packagist.org/packages/basementdevs/filament-better-mails)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+A Laravel package that provides a complete implementation to track mails, starting to send the mail and receiving back mail's events by webhooks, currently the supported mailer is  ```Resend```,  and a Filament v4 resource to view sent mails in your admin panel. It ships with:
 
-## Support us
+## Overview of the stack
+- Language: PHP 8.3
+- Framework: Laravel (Illuminate 12.x APIs)
+- Admin: Filament v4
+- Package manager: Composer
+- Testing: Pest + Orchestra Testbench
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/filament-better-mails.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/filament-better-mails)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+## Requirements
+- PHP ^8.3
+- Laravel 12.x compatible application
+- Filament ^4.0 installed in the host app
+- Composer
 
 ## Installation
 
@@ -85,6 +90,15 @@ return [
 ];
 ```
 
+### Environment variables
+Resend credentials and defaults are required by your application. The following are commonly used; verify in your project:
+
+```env
+MAIL_MAILER=resend
+RESEND_API_KEY=
+RESEND_WEBHOOK_SECRET=
+```
+
 Optionally, you can publish the views using
 
 ```bash
@@ -93,11 +107,15 @@ php artisan vendor:publish --tag="filament-better-mails-views"
 
 ## Usage
 
+To use the Filament Resource you must add the ```FilamentBetterEmailPlugin``` at your panel provider. 
 ```php
-$BetterMails = new Basement\BetterMails();
-echo $BetterMails->echoPhrase('Hello, Basement!');
-```
+use Basement\BetterMails\Filament\FilamentBetterEmailPlugin;
 
+        ->plugins([
+               FilamentBetterEmailPlugin::make(),
+            ])
+```
+The resource track all mails sent based on  their status, also has a widget and actions to resend this mails again.
 ## Testing
 
 ```bash
@@ -119,6 +137,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Daniel Reis](https://github.com/basementdevs)
+- [RichardGL11](https://github.com/RichardGL11)
 - [All Contributors](../../contributors)
 
 ## License
