@@ -4,7 +4,6 @@
 use Basement\BetterMails\Core\Models\BetterEmail;
 use Basement\BetterMails\Core\Models\BetterEmailAttachment;
 use Basement\BetterMails\Core\Models\BetterEmailEvent;
-use Basement\BetterMails\Resend\Email\Middleware\VerifyResendWebhookSignature;
 use Basement\BetterMails\Resend\ResendDriver;
 
 return [

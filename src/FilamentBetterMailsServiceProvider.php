@@ -3,7 +3,6 @@
 namespace Basement\BetterMails;
 
 use Basement\BetterMails\Core\Contracts\BetterDriverContract;
-use Basement\BetterMails\Core\Contracts\BetterMiddlewareContract;
 use Basement\BetterMails\Core\Listeners\AfterSendingMailListener;
 use Basement\BetterMails\Core\Listeners\BeforeSendingMailListener;
 use Basement\BetterMails\Core\Listeners\External\ClickedMailListener;

@@ -2,8 +2,8 @@
 
 use Basement\BetterMails\Core\Enums\SupportedMailProvidersEnum;
 use Basement\BetterMails\Core\Exceptions\MailException;
-
 use Resend\Laravel\Http\Middleware\VerifyWebhookSignature;
+
 use function Pest\Laravel\postJson;
 use function Pest\Laravel\withoutExceptionHandling;
 
