@@ -47,6 +47,7 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
      */
     public function boot(): void
     {
+        $this->publish();
         $this->loadListeners();
         $this->loadResendListeners();
         $this->loadProviderConfig();
@@ -84,5 +85,16 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
         Event::listen(ResendEmailReceivedEvent::class, ReceivedMailListener::class);
         Event::listen(ResendEmailFailedEvent::class, FailedMailListener::class);
         // TODO: sent, delivered_delayed
+    }
+
+    private function publish(): void
+    {
+        $this->publishes([
+            __DIR__.'/../config/filament-better-mails.php' => config_path('filament-better-mails.php'),
+        ], 'filament-better-mails-config');
+
+        $this->publishes([
+            __DIR__.'/../database/migrations/' => database_path('migrations'),
+        ], 'filament-better-mails-migrations');
     }
 }
