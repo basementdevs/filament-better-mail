@@ -96,5 +96,9 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
         $this->publishes([
             __DIR__.'/../database/migrations/' => database_path('migrations'),
         ], 'filament-better-mails-migrations');
+
+        $this->publishes([
+            __DIR__.'/../resources/views' => resource_path('views'),
+        ], 'filament-better-mails-views');
     }
 }

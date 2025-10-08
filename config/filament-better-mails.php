@@ -46,7 +46,7 @@ return [
             'resend' => [
                 'middleware' => VerifyResendWebhookSignature::class,
                 'driver' => ResendDriver::class,
-                'key_secret' => env('MAILS_WEBHOOK_SECRET', ''),
+                'key_secret' => env('RESEND_WEBHOOK_SECRET'),
             ],
         ]
     ]
