@@ -8,7 +8,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-final class ResendEmailComplainedEvent implements COmplainedEventContract
+final class ResendEmailComplainedEvent implements ComplainedEventContract
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
