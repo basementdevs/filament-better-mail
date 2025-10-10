@@ -2,13 +2,13 @@
 
 use Basement\BetterMails\Core\Enums\SupportedMailProvidersEnum;
 use Basement\BetterMails\Core\Exceptions\MailException;
-use Resend\Laravel\Http\Middleware\VerifyWebhookSignature;
+use Basement\BetterMails\Resend\Email\Middleware\VerifyWebhookSignatureAdapter;
 
 use function Pest\Laravel\postJson;
 use function Pest\Laravel\withoutExceptionHandling;
 
 it('should throw exception if mail header was not sent', function (): void {
-    $this->withoutMiddleware(VerifyWebhookSignature::class);
+    $this->withoutMiddleware(VerifyWebhookSignatureAdapter::class);
     withoutExceptionHandling();
     postJson(route('filament-better-mails.webhook.store', ['provider' => SupportedMailProvidersEnum::Resend]), [
         'data' => [

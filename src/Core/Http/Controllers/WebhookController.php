@@ -5,8 +5,8 @@ namespace Basement\BetterMails\Core\Http\Controllers;
 use Basement\BetterMails\Core\Contracts\BetterDriverContract;
 use Basement\BetterMails\Core\Enums\SupportedMailProvidersEnum;
 use Illuminate\Http\Request;
-use Illuminate\Pipeline\Pipeline;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Pipeline;
 
 final class WebhookController extends Controller
 {
@@ -14,8 +14,7 @@ final class WebhookController extends Controller
     {
         $provider = SupportedMailProvidersEnum::tryFrom($provider);
 
-        (new Pipeline(app()))
-            ->send($request)
+        Pipeline::send($request)
             ->through($provider->getMiddleware())
             ->thenReturn();
 

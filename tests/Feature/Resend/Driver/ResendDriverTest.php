@@ -4,9 +4,9 @@ use Basement\BetterMails\Core\Enums\MailEventTypeEnum;
 use Basement\BetterMails\Core\Enums\SupportedMailProvidersEnum;
 use Basement\BetterMails\Core\Models\BetterEmail;
 use Basement\BetterMails\Core\Models\BetterEmailEvent;
+use Basement\BetterMails\Resend\Email\Middleware\VerifyWebhookSignatureAdapter;
 use Basement\BetterMails\Resend\Email\ResendEventsEnum;
 use Basement\BetterMails\Tests\Fixtures\Resend\ResendWebhookDataProvider;
-use Resend\Laravel\Http\Middleware\VerifyWebhookSignature;
 
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\postJson;
@@ -21,7 +21,7 @@ beforeEach(function () {
         ->create([
             'uuid' => $this->uuid,
         ]);
-    $this->withoutMiddleware(VerifyWebhookSignature::class);
+    $this->withoutMiddleware(VerifyWebhookSignatureAdapter::class);
 });
 
 it('should be able to update the emails status to delivered via webhook', function (): void {
