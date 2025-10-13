@@ -3,8 +3,8 @@
 namespace Basement\BetterMails\Core\Enums;
 
 use Basement\BetterMails\Core\Contracts\BetterMiddlewareContract;
-use Basement\BetterMails\Resend\Email\Middleware\VerifyWebhookSignatureAdapter;
 use Basement\BetterMails\Resend\Email\Middleware\VerifyHeaderWebhookSignature;
+use Basement\BetterMails\Resend\Email\Middleware\VerifyWebhookSignatureAdapter;
 
 enum SupportedMailProvidersEnum: string
 {
