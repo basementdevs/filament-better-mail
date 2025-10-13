@@ -138,10 +138,6 @@ class BetterEmail extends Model
     public function delivered(): void
     {
         $this->update(['delivered_at' => now()]);
-        $this->events()->create([
-            'type' => MailEventTypeEnum::Delivered,
-            'occurred_at' => now(),
-        ]);
     }
 
     public function opened(): void
@@ -149,10 +145,6 @@ class BetterEmail extends Model
         $this->update([
             'last_opened_at' => now(),
             'opens' => $this->opens + 1,
-        ]);
-        $this->events()->create([
-            'type' => MailEventTypeEnum::Opened,
-            'occurred_at' => now(),
         ]);
     }
 
@@ -162,19 +154,11 @@ class BetterEmail extends Model
             'last_clicked_at' => now(),
             'clicks' => $this->clicks + 1,
         ]);
-        $this->events()->create([
-            'type' => MailEventTypeEnum::Clicked,
-            'occurred_at' => now(),
-        ]);
     }
 
     public function complained(): void
     {
         $this->update(['complained_at' => now()]);
-        $this->events()->create([
-            'type' => MailEventTypeEnum::Complained,
-            'occurred_at' => now(),
-        ]);
     }
 
     public function softBounced(): void
@@ -189,10 +173,6 @@ class BetterEmail extends Model
     public function hardBounced(): void
     {
         $this->update(['hard_bounced_at' => now()]);
-        $this->events()->create([
-            'type' => MailEventTypeEnum::HardBounced,
-            'occurred_at' => now(),
-        ]);
     }
 
     protected static function newFactory(): BetterMailFactory

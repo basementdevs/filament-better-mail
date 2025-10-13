@@ -8,7 +8,7 @@ use Basement\BetterMails\Core\Http\Middleware\AbstractMailMiddleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class VerifyResendWebhookSignature extends AbstractMailMiddleware implements BetterMiddlewareContract
+class VerifyHeaderWebhookSignature extends AbstractMailMiddleware implements BetterMiddlewareContract
 {
     /**
      * @throws MailException
@@ -19,8 +19,6 @@ class VerifyResendWebhookSignature extends AbstractMailMiddleware implements Bet
 
         parent::validateHeaderKey($headers, 'name', 'value');
 
-        // implementar a secret key colocar no env e config do proprio resend
-        // config('filament-better-mails.webhooks.drivers.resend.key_secret');
         return $next($request);
     }
 }

@@ -20,7 +20,7 @@ abstract class AbstractMailMiddleware implements BetterMiddlewareContract
 
         foreach ($headers as $header) {
 
-            if ($header[$headerKey] == config('filament-better-mails.mails.headers.key')) {
+            if (strtolower($header[$headerKey]) == strtolower(config('filament-better-mails.mails.headers.key'))) {
                 $mailUuid = $header[$defaultKey];
                 break;
             }

@@ -3,8 +3,8 @@
 namespace Basement\BetterMails\Core\Enums;
 
 use Basement\BetterMails\Core\Contracts\BetterMiddlewareContract;
-use Basement\BetterMails\Resend\Email\Middleware\VerifyResendWebhookSignature;
 use Basement\BetterMails\Resend\Email\Middleware\VerifyWebhookSignatureAdapter;
+use Basement\BetterMails\Resend\Email\Middleware\VerifyHeaderWebhookSignature;
 
 enum SupportedMailProvidersEnum: string
 {
@@ -16,7 +16,7 @@ enum SupportedMailProvidersEnum: string
     public function getMiddleware(): array
     {
         return match ($this) {
-            self::Resend => [VerifyWebhookSignatureAdapter::class, VerifyResendWebhookSignature::class],
+            self::Resend => [VerifyWebhookSignatureAdapter::class, VerifyHeaderWebhookSignature::class],
         };
     }
 }
