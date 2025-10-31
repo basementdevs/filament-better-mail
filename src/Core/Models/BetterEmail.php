@@ -2,6 +2,7 @@
 
 namespace Basement\BetterMails\Core\Models;
 
+use Basement\BetterMails\Core\Enums\MailEventTypeEnum;
 use Basement\BetterMails\Database\Factories\BetterMailFactory;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Builder;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int|null $id
@@ -111,6 +113,11 @@ class BetterEmail extends Model
         return static::query()->where('created_at', '<=', now()->subDays($pruneAfter));
     }
 
+    public function latestEvent(): HasOne
+    {
+        return $this->hasOne(BetterEmailEvent::class, 'mail_id')->latestOfMany('occurred_at');
+    }
+
     public function attachments(): HasMany
     {
         return $this->hasMany(config('filament-better-mails.mails.models.attachment'), 'mail_id');
@@ -126,6 +133,46 @@ class BetterEmail extends Model
     public function sent(): void
     {
         $this->update(['sent_at' => now()]);
+    }
+
+    public function delivered(): void
+    {
+        $this->update(['delivered_at' => now()]);
+    }
+
+    public function opened(): void
+    {
+        $this->update([
+            'last_opened_at' => now(),
+            'opens' => $this->opens + 1,
+        ]);
+    }
+
+    public function clicked(): void
+    {
+        $this->update([
+            'last_clicked_at' => now(),
+            'clicks' => $this->clicks + 1,
+        ]);
+    }
+
+    public function complained(): void
+    {
+        $this->update(['complained_at' => now()]);
+    }
+
+    public function softBounced(): void
+    {
+        $this->update(['soft_bounced_at' => now()]);
+        $this->events()->create([
+            'type' => MailEventTypeEnum::SoftBounced,
+            'occurred_at' => now(),
+        ]);
+    }
+
+    public function hardBounced(): void
+    {
+        $this->update(['hard_bounced_at' => now()]);
     }
 
     protected static function newFactory(): BetterMailFactory

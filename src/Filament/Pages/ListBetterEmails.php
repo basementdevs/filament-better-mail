@@ -39,8 +39,8 @@ class ListBetterEmails extends ListRecords
                 ->icon($event->getIcon())
                 ->label($event->getLabel())
                 ->badgeColor($event->getColor())
-                ->modifyQueryUsing(fn ($query) => $query->whereHas('events', fn ($q) => $q->where('type', $event)))
-                ->badge(fn () => BetterEmail::whereHas('events', fn ($q) => $q->where('type', $event))->count())
+                ->modifyQueryUsing(fn ($query) => $query->whereHas('latestEvent', fn ($q) => $q->where('type', $event)))
+                ->badge(fn () => BetterEmail::whereHas('latestEvent', fn ($q) => $q->where('type', $event))->count())
             )->toArray(),
         ];
     }

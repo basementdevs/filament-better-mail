@@ -2,15 +2,15 @@
 
 ## Delivery Events
 
-- [ ] Implement "delivered" event handling
+- [x] Implement "delivered" event handling
 - [ ] Implement "bounced" event handling
 - [ ] Implement "deferred" event handling
 - [ ] Implement "blocked" event handling
 
 ## Engagement Events
 
-- [ ] Implement "opened" event handling
-- [ ] Implement "clicked" event handling
+- [x] Implement "opened" event handling
+- [x] Implement "clicked" event handling
 - [ ] Implement "unsubscribed" event handling
 - [ ] Implement "complained" (spam report) event handling
 

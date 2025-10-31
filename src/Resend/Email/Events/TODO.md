@@ -2,20 +2,19 @@
 
 ## Event Classes
 
-- [ ] Create ResendEmailSentEvent
+- [x] Create ResendEmailSentEvent
 - [ ] Create ResendEmailAcceptedEvent
-- [ ] Create ResendEmailClickedEvent
-- [ ] Create ResendEmailComplainedEvent
-- [ ] Create ResendEmailDeliveredEvent
-- [ ] Create ResendEmailSoftBouncedEvent
-- [ ] Create ResendEmailHardBouncedEvent
-- [ ] Create ResendEmailOpenedEvent
+- [x] Create ResendEmailClickedEvent
+- [x] Create ResendEmailComplainedEvent
+- [x] Create ResendEmailDeliveredEvent
+- [x] Create ResendEmailHardBouncedEvent
+- [x] Create ResendEmailOpenedEvent
 - [ ] Create ResendEmailUnsubscribedEvent
 
 ## Webhook Handler
 
 - [ ] Implement webhook signature verification for Resend
-- [ ] Create webhook payload DTOs for each event type
-- [ ] Implement webhook payload validation
+- [x] Create webhook payload DTOs for each event type
+- [x] Implement webhook payload validation
 - [ ] Add event type mapping from Resend to internal events
-- [ ] Create event dispatcher for mapped events
+- [x] Create event dispatcher for mapped events
