@@ -15,6 +15,11 @@ class BetterEmailStatsWidget extends BaseWidget
 
     protected static bool $isDiscovered = false;
 
+    public static function canView(): bool
+    {
+        return config('filament-better-mails.view_any', true);
+    }
+
     protected function getStats(): array
     {
         $class = BetterEmailEvent::class;

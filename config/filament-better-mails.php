@@ -47,5 +47,6 @@ return [
                 'key_secret' => env('RESEND_WEBHOOK_SECRET'),
             ],
         ]
-    ]
+    ],
+    'view_any' => true,
 ];
