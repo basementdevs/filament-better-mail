@@ -6,7 +6,7 @@
         "laravel",
         "filament-better-mails"
     ],
-    "version": "5.0.0",
+    "version": "5.0.1",
     "homepage": "https://github.com/basementdevs/filament-better-mails",
     "license": "MIT",
     "authors": [
