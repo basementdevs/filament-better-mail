@@ -24,6 +24,8 @@ enum MailEventTypeEnum: string implements HasColor, HasIcon, HasLabel
     case HardBounced = 'hard_bounced';
     case Opened = 'opened';
     case Unsubscribed = 'unsubscribed';
+    case Scheduled = 'scheduled';
+    case Suppressed = 'suppressed';
 
     public function getColor(): string|array|null
     {
@@ -37,6 +39,8 @@ enum MailEventTypeEnum: string implements HasColor, HasIcon, HasLabel
             self::SoftBounced => Color::Red,
             self::HardBounced => Color::Red,
             self::Unsubscribed => Color::Gray,
+            self::Scheduled => Color::Amber,
+            self::Suppressed => Color::Orange,
         };
     }
 
@@ -52,6 +56,8 @@ enum MailEventTypeEnum: string implements HasColor, HasIcon, HasLabel
             self::HardBounced => 'HardBounced',
             self::Opened => 'Opened',
             self::Unsubscribed => 'Unsubscribed',
+            self::Scheduled => 'Scheduled',
+            self::Suppressed => 'Suppressed',
         };
     }
 
@@ -67,6 +73,8 @@ enum MailEventTypeEnum: string implements HasColor, HasIcon, HasLabel
             self::HardBounced => Heroicon::OutlinedArrowPathRoundedSquare,
             self::Opened => Heroicon::OutlinedInboxArrowDown,
             self::Unsubscribed => Heroicon::OutlinedXMark,
+            self::Scheduled => Heroicon::OutlinedClock,
+            self::Suppressed => Heroicon::OutlinedNoSymbol,
         };
     }
 
@@ -82,6 +90,8 @@ enum MailEventTypeEnum: string implements HasColor, HasIcon, HasLabel
             self::HardBounced => 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100',
             self::Opened => 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100',
             self::Unsubscribed => 'bg-gray-500 text-white',
+            self::Scheduled => 'bg-amber-100 text-amber-800 dark:bg-amber-800 dark:text-amber-100',
+            self::Suppressed => 'bg-orange-100 text-orange-800 dark:bg-orange-800 dark:text-orange-100',
         };
     }
 }

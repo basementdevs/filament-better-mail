@@ -13,4 +13,6 @@ enum ResendEventsEnum: string
     case EmailClicked = 'email.clicked';
     case EmailReceived = 'email.received';
     case EmailFailed = 'email.failed';
+    case EmailScheduled = 'email.scheduled';
+    case EmailSuppressed = 'email.suppressed';
 }
