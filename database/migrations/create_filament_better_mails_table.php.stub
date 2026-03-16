@@ -39,6 +39,8 @@ return new class extends Migration
             $table->timestamp('soft_bounced_at')->nullable();
             $table->timestamp('hard_bounced_at')->nullable();
             $table->timestamp('unsubscribed_at')->nullable();
+            $table->timestamp('scheduled_at')->nullable();
+            $table->timestamp('suppressed_at')->nullable();
             $table->timestamps();
         });
 

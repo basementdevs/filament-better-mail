@@ -40,6 +40,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property CarbonInterface|null $soft_bounced_at
  * @property CarbonInterface|null $hard_bounced_at
  * @property CarbonInterface|null $unsubscribed_at
+ * @property CarbonInterface|null $scheduled_at
+ * @property CarbonInterface|null $suppressed_at
  * @property CarbonInterface|null $created_at
  * @property CarbonInterface|null $updated_at
  */
@@ -75,6 +77,8 @@ class BetterEmail extends Model
         'complained_at',
         'soft_bounced_at',
         'hard_bounced_at',
+        'scheduled_at',
+        'suppressed_at',
     ];
 
     protected $casts = [
@@ -102,6 +106,8 @@ class BetterEmail extends Model
         'soft_bounced_at' => 'datetime',
         'hard_bounced_at' => 'datetime',
         'unsubscribed_at' => 'datetime',
+        'scheduled_at' => 'datetime',
+        'suppressed_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -173,6 +179,16 @@ class BetterEmail extends Model
     public function hardBounced(): void
     {
         $this->update(['hard_bounced_at' => now()]);
+    }
+
+    public function scheduled(): void
+    {
+        $this->update(['scheduled_at' => now()]);
+    }
+
+    public function suppressed(): void
+    {
+        $this->update(['suppressed_at' => now()]);
     }
 
     protected static function newFactory(): BetterMailFactory

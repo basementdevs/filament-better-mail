@@ -39,6 +39,7 @@ return [
         ]
     ],
     'webhooks' => [
+        'log_unknown_events' => env('MAILS_LOG_UNKNOWN_EVENTS', true),
         'provider' => env('MAILS_WEBHOOK_PROVIDER', 'resend'),
 
         'drivers' => [

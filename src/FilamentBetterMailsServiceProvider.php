@@ -12,6 +12,8 @@ use Basement\BetterMails\Core\Listeners\External\FailedMailListener;
 use Basement\BetterMails\Core\Listeners\External\HardBouncedMailListener;
 use Basement\BetterMails\Core\Listeners\External\OpenedMailListener;
 use Basement\BetterMails\Core\Listeners\External\ReceivedMailListener;
+use Basement\BetterMails\Core\Listeners\External\ScheduledMailListener;
+use Basement\BetterMails\Core\Listeners\External\SuppressedMailListener;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailClickedEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailComplainedEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailDeliveredEvent;
@@ -19,6 +21,8 @@ use Basement\BetterMails\Resend\Email\Events\ResendEmailFailedEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailHardBouncedEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailOpenedEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailReceivedEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailScheduledEvent;
+use Basement\BetterMails\Resend\Email\Events\ResendEmailSuppressedEvent;
 use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Mail\Events\MessageSent;
 use Illuminate\Support\Facades\Event;
@@ -82,6 +86,8 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
         Event::listen(ResendEmailHardBouncedEvent::class, HardBouncedMailListener::class);
         Event::listen(ResendEmailReceivedEvent::class, ReceivedMailListener::class);
         Event::listen(ResendEmailFailedEvent::class, FailedMailListener::class);
+        Event::listen(ResendEmailScheduledEvent::class, ScheduledMailListener::class);
+        Event::listen(ResendEmailSuppressedEvent::class, SuppressedMailListener::class);
         // TODO: sent, delivered_delayed
     }
 
