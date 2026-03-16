@@ -7,7 +7,6 @@ use Basement\BetterMails\Core\Models\BetterEmailEvent;
 use Basement\BetterMails\Resend\Email\Middleware\VerifyWebhookSignatureAdapter;
 use Basement\BetterMails\Resend\Email\ResendEventsEnum;
 use Basement\BetterMails\Tests\Fixtures\Resend\ResendWebhookDataProvider;
-
 use Illuminate\Support\Facades\Log;
 
 use function Pest\Laravel\assertDatabaseHas;
