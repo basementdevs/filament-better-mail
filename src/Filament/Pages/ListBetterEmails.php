@@ -6,6 +6,7 @@ use Basement\BetterMails\Core\Enums\MailEventTypeEnum;
 use Basement\BetterMails\Core\Models\BetterEmail;
 use Basement\BetterMails\Filament\Actions\BulkResendAction;
 use Basement\BetterMails\Filament\Actions\ResendAction;
+use Basement\BetterMails\Filament\Actions\SendTestEmailAction;
 use Basement\BetterMails\Filament\BetterEmailResource;
 use Basement\BetterMails\Filament\Tables\Components\MailStatusColumn;
 use Basement\BetterMails\Filament\Widgets\BetterEmailStatsWidget;
@@ -106,6 +107,13 @@ class ListBetterEmails extends ListRecords
                     DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            SendTestEmailAction::make(),
+        ];
     }
 
     protected function getHeaderWidgets(): array
