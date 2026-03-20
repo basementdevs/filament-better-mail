@@ -17,7 +17,7 @@ final readonly class ResendWebhookReceivedMailDTO implements BetterMailDTOContra
         public ?array $payload,
     ) {}
 
-    public static function fromWebhook(array $dto): ?self
+    public static function fromWebhook(array $dto): ?static
     {
         $event = ResendEventsEnum::tryFrom($dto['type'] ?? '');
 
@@ -27,7 +27,7 @@ final readonly class ResendWebhookReceivedMailDTO implements BetterMailDTOContra
 
         $mailUuid = $dto['data']['headers'][0]['value'];
 
-        return new self(
+        return new static(
             id: Uuid::fromString($mailUuid),
             event: $event,
             payload: $dto,
