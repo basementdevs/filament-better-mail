@@ -17,7 +17,7 @@ use Basement\BetterMails\Resend\Email\Events\ResendEmailScheduledEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailSentEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailSuppressedEvent;
 use Basement\BetterMails\Resend\Email\ResendEventsEnum;
-use Illuminate\Support\Facades\Log;
+use Basement\BetterMails\Core\Support\BetterMailLogger;
 
 final class ResendDriver extends AbstractMailDriver implements BetterDriverContract
 {
@@ -30,7 +30,7 @@ final class ResendDriver extends AbstractMailDriver implements BetterDriverContr
 
         if ($dto === null) {
             if (config('filament-better-mails.webhooks.log_unknown_events', true)) {
-                Log::warning('BetterMails: Received unknown Resend webhook event type, skipping.', [
+                BetterMailLogger::warning('Received unknown Resend webhook event type, skipping.', [
                     'type' => $data['type'] ?? null,
                 ]);
             }
@@ -51,5 +51,10 @@ final class ResendDriver extends AbstractMailDriver implements BetterDriverContr
             ResendEventsEnum::EmailScheduled => ResendEmailScheduledEvent::dispatch($dto),
             ResendEventsEnum::EmailSuppressed => ResendEmailSuppressedEvent::dispatch($dto),
         };
+
+        BetterMailLogger::info('Event dispatched.', [
+            'event' => $dto->event->value,
+            'mail_uuid' => $dto->id,
+        ]);
     }
 }

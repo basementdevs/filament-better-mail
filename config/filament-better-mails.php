@@ -41,6 +41,10 @@ return [
     'webhooks' => [
         'log_unknown_events' => env('MAILS_LOG_UNKNOWN_EVENTS', true),
         'provider' => env('MAILS_WEBHOOK_PROVIDER', 'resend'),
+        'logging' => [
+            'channel' => env('MAILS_WEBHOOK_LOG_CHANNEL'),
+            'enabled' => env('MAILS_WEBHOOK_LOGGING_ENABLED', true),
+        ],
 
         'drivers' => [
             'resend' => [

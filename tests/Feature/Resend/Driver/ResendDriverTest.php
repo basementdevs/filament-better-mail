@@ -162,6 +162,7 @@ it('should be able to update email status to bounced', function () {
 });
 
 it('should return 200 and log warning for unknown event type', function () {
+    Log::shouldReceive('info')->zeroOrMoreTimes();
     Log::shouldReceive('warning')
         ->once()
         ->with('BetterMails: Received unknown Resend webhook event type, skipping.', [
@@ -194,6 +195,7 @@ it('should return 200 and log warning for unknown event type', function () {
 });
 
 it('should return 200 and log warning when type key is missing', function () {
+    Log::shouldReceive('info')->zeroOrMoreTimes();
     Log::shouldReceive('warning')
         ->once()
         ->with('BetterMails: Received unknown Resend webhook event type, skipping.', [
