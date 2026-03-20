@@ -12,6 +12,13 @@ use Illuminate\Contracts\Support\Htmlable;
 
 enum MailEventTypeEnum: string implements HasColor, HasIcon, HasLabel
 {
+    public const LIFECYCLE_STAGES = [
+        self::Sent,
+        self::Delivered,
+        self::Opened,
+        self::Clicked,
+    ];
+
     // Initial internal event when the email is created
     case Sent = 'sent';
 
@@ -75,6 +82,34 @@ enum MailEventTypeEnum: string implements HasColor, HasIcon, HasLabel
             self::Unsubscribed => Heroicon::OutlinedXMark,
             self::Scheduled => Heroicon::OutlinedClock,
             self::Suppressed => Heroicon::OutlinedNoSymbol,
+        };
+    }
+
+    public function getPriority(): int
+    {
+        return match ($this) {
+            self::HardBounced => 100,
+            self::Complained => 95,
+            self::Suppressed => 90,
+            self::SoftBounced => 80,
+            self::Unsubscribed => 75,
+            self::Clicked => 60,
+            self::Opened => 50,
+            self::Delivered => 40,
+            self::Accepted => 30,
+            self::Scheduled => 20,
+            self::Sent => 10,
+        };
+    }
+
+    public function getBadgeCssColor(): string
+    {
+        return match ($this) {
+            self::HardBounced, self::Complained, self::Suppressed => 'danger',
+            self::SoftBounced, self::Unsubscribed => 'warning',
+            self::Clicked, self::Opened => 'success',
+            self::Delivered, self::Accepted => 'info',
+            self::Scheduled, self::Sent => 'gray',
         };
     }
 

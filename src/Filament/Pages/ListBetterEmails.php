@@ -7,7 +7,7 @@ use Basement\BetterMails\Core\Models\BetterEmail;
 use Basement\BetterMails\Filament\Actions\BulkResendAction;
 use Basement\BetterMails\Filament\Actions\ResendAction;
 use Basement\BetterMails\Filament\BetterEmailResource;
-use Basement\BetterMails\Filament\Tables\Components\BookingProgressComponent;
+use Basement\BetterMails\Filament\Tables\Components\MailStatusColumn;
 use Basement\BetterMails\Filament\Widgets\BetterEmailStatsWidget;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -70,8 +70,7 @@ class ListBetterEmails extends ListRecords
                     ->getStateUsing(fn (BetterEmail $record): string => self::formatMailState(emails: $record->to, mailOnly: true))
                     ->sortable()
                     ->searchable(),
-                BookingProgressComponent::make()
-                    ->label('Progress')
+                MailStatusColumn::make()
                     ->state(fn ($record) => $record->events),
                 TextColumn::make('opens')
                     ->label(__('Opens'))
@@ -90,7 +89,7 @@ class ListBetterEmails extends ListRecords
                     ->searchable(),
             ])
             ->modifyQueryUsing(
-                fn (Builder $query) => $query->with('attachments')
+                fn (Builder $query) => $query->with(['attachments', 'events'])
             )
             ->recordActions([
                 ViewAction::make()
