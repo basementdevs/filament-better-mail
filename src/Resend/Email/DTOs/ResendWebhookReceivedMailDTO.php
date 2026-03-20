@@ -2,8 +2,6 @@
 
 namespace Basement\BetterMails\Resend\Email\DTOs;
 
-// TODO: implement interface
-
 use Basement\BetterMails\Core\Contracts\BetterMailDTOContract;
 use Basement\BetterMails\Resend\Email\ResendEventsEnum;
 use JsonSerializable;
@@ -25,7 +23,14 @@ final readonly class ResendWebhookReceivedMailDTO implements BetterMailDTOContra
             return null;
         }
 
-        $mailUuid = $dto['data']['headers'][0]['value'];
+        $headerKey = config('filament-better-mails.mails.headers.key', 'X-Better-Mails-Event-ID');
+
+        $mailUuid = collect($dto['data']['headers'] ?? [])
+            ->firstWhere('name', $headerKey)['value'] ?? null;
+
+        if ($mailUuid === null) {
+            return null;
+        }
 
         return new self(
             id: Uuid::fromString($mailUuid),

@@ -12,13 +12,6 @@ use Illuminate\Contracts\Support\Htmlable;
 
 enum MailEventTypeEnum: string implements HasColor, HasIcon, HasLabel
 {
-    public const LIFECYCLE_STAGES = [
-        self::Sent,
-        self::Delivered,
-        self::Opened,
-        self::Clicked,
-    ];
-
     // Initial internal event when the email is created
     case Sent = 'sent';
 
@@ -33,6 +26,13 @@ enum MailEventTypeEnum: string implements HasColor, HasIcon, HasLabel
     case Unsubscribed = 'unsubscribed';
     case Scheduled = 'scheduled';
     case Suppressed = 'suppressed';
+
+    public const LIFECYCLE_STAGES = [
+        self::Sent,
+        self::Delivered,
+        self::Opened,
+        self::Clicked,
+    ];
 
     public function getColor(): string|array|null
     {

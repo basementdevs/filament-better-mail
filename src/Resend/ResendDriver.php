@@ -21,9 +21,6 @@ use Basement\BetterMails\Resend\Email\ResendEventsEnum;
 
 final class ResendDriver extends AbstractMailDriver implements BetterDriverContract
 {
-    // TODO: implements mail() method
-
-    // TODO: implement audience() method
     public function handle(array $data): void
     {
         $dto = ResendWebhookReceivedMailDTO::fromWebhook($data);

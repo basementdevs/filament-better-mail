@@ -10,15 +10,15 @@ final class MailStatusColumn extends Column
 {
     protected string $view = 'basement-better-mails::tables.columns.mail-status';
 
-    public static function getDefaultName(): string
-    {
-        return 'mail-status';
-    }
-
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->label(__('Status'));
+    }
+
+    public static function getDefaultName(): string
+    {
+        return 'mail-status';
     }
 }
