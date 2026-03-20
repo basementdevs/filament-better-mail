@@ -12,11 +12,18 @@ final class SimpleTestMail extends Mailable
 
     public function envelope(): Envelope
     {
-        return new Envelope(subject: '[Test] Better Mails — Simple Test');
+        return new Envelope(
+            subject: '[Test] Better Mails — Simple Test',
+            tags: ['test-email'],
+            metadata: ['source' => 'filament-better-mails'],
+        );
     }
 
     public function content(): Content
     {
-        return new Content(markdown: 'filament-better-mails::mails.test.simple');
+        return new Content(
+            markdown: 'basement-better-mails::mails.test.simple',
+            with: ['link' => $this->link],
+        );
     }
 }

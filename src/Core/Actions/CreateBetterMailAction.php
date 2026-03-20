@@ -7,9 +7,9 @@ use Basement\BetterMails\Core\Models\BetterEmail;
 
 final class CreateBetterMailAction
 {
-    public static function execute(BetterMailDTO $dto): void
+    public static function execute(BetterMailDTO $dto): BetterEmail
     {
-        BetterEmail::query()->create([
+        return BetterEmail::query()->create([
             'uuid' => $dto->uuid,
             'mailer' => $dto->mailer,
             'subject' => $dto->subject,
