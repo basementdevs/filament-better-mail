@@ -27,7 +27,7 @@ final readonly class ResendWebhookReceivedMailDTO implements BetterMailDTOContra
 
         $mailUuid = $dto['data']['headers'][0]['value'];
 
-        return new static(
+        return new self(
             id: Uuid::fromString($mailUuid),
             event: $event,
             payload: $dto,

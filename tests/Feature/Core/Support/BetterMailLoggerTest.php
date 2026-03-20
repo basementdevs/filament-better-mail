@@ -2,6 +2,7 @@
 
 use Basement\BetterMails\Core\Support\BetterMailLogger;
 use Illuminate\Support\Facades\Log;
+use Psr\Log\LoggerInterface;
 
 it('should use default channel when no channel is configured', function () {
     config()->set('filament-better-mails.webhooks.logging.channel', null);
@@ -18,7 +19,7 @@ it('should use specified channel when configured', function () {
     config()->set('filament-better-mails.webhooks.logging.channel', 'resend');
     config()->set('filament-better-mails.webhooks.logging.enabled', true);
 
-    $logger = Mockery::mock(\Psr\Log\LoggerInterface::class);
+    $logger = Mockery::mock(LoggerInterface::class);
     $logger->shouldReceive('warning')
         ->once()
         ->with('BetterMails: Test warning.', ['key' => 'value']);

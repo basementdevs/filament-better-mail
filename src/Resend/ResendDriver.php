@@ -4,6 +4,7 @@ namespace Basement\BetterMails\Resend;
 
 use Basement\BetterMails\Core\AbstractMailDriver;
 use Basement\BetterMails\Core\Contracts\BetterDriverContract;
+use Basement\BetterMails\Core\Support\BetterMailLogger;
 use Basement\BetterMails\Resend\Email\DTOs\ResendWebhookReceivedMailDTO;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailClickedEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailComplainedEvent;
@@ -17,7 +18,6 @@ use Basement\BetterMails\Resend\Email\Events\ResendEmailScheduledEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailSentEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailSuppressedEvent;
 use Basement\BetterMails\Resend\Email\ResendEventsEnum;
-use Basement\BetterMails\Core\Support\BetterMailLogger;
 
 final class ResendDriver extends AbstractMailDriver implements BetterDriverContract
 {
