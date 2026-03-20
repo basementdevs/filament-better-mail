@@ -21,6 +21,7 @@ final readonly class ResendMailDTO
             to: $data['to'],
             cc: $data['cc'],
             bcc: $data['bcc'],
+            replyTo: $data['replyTo'] ?? [],
         );
     }
 }

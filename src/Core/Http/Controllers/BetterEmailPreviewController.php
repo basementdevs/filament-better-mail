@@ -11,7 +11,7 @@ final class BetterEmailPreviewController
 {
     public function __invoke(Request $request): ResponseFactory|Response
     {
-        $mail = BetterEmail::query()->find($request->mail);
+        $mail = BetterEmail::query()->findOrFail($request->mail);
 
         return response($mail->html);
     }

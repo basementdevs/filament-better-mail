@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class BetterEmailAttachment extends Model
 {
@@ -62,7 +63,7 @@ class BetterEmailAttachment extends Model
         return Storage::disk($this->disk)->get($this->storagePath);
     }
 
-    public function downloadFileFromStorage(?string $filename = null): string
+    public function downloadFileFromStorage(?string $filename = null): StreamedResponse
     {
         return Storage::disk($this->disk)
             ->download(

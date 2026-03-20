@@ -10,9 +10,17 @@ class AfterSendingMailListener
 {
     public function handle(MessageSent $event): void
     {
-        $uuid = $event->message->getHeaders()->get(config('filament-better-mails.mails.headers.key'))->getBody();
+        $header = $event->message->getHeaders()->get(config('filament-better-mails.mails.headers.key'));
+        if (! $header) {
+            return;
+        }
 
+        $uuid = $header->getBody();
         $mail = BetterEmail::query()->where('uuid', $uuid)->first();
+        if (! $mail) {
+            return;
+        }
+
         MarkMailAsSentAction::execute($mail);
     }
 }
