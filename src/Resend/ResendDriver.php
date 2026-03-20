@@ -29,11 +29,9 @@ final class ResendDriver extends AbstractMailDriver implements BetterDriverContr
         $dto = ResendWebhookReceivedMailDTO::fromWebhook($data);
 
         if ($dto === null) {
-            if (config('filament-better-mails.webhooks.log_unknown_events', true)) {
-                BetterMailLogger::warning('Received unknown Resend webhook event type, skipping.', [
-                    'type' => $data['type'] ?? null,
-                ]);
-            }
+            BetterMailLogger::warning('Received unknown Resend webhook event type, skipping.', [
+                'type' => $data['type'] ?? null,
+            ]);
 
             return;
         }
