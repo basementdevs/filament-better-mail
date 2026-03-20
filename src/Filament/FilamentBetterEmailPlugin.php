@@ -2,6 +2,7 @@
 
 namespace Basement\BetterMails\Filament;
 
+use Basement\BetterMails\Core\Http\Controllers\BetterEmailAttachmentDownloadController;
 use Basement\BetterMails\Core\Http\Controllers\BetterEmailPreviewController;
 use Basement\BetterMails\Filament\Widgets\BetterEmailStatsWidget;
 use Filament\Contracts\Plugin;
@@ -39,5 +40,6 @@ final class FilamentBetterEmailPlugin implements Plugin
     private function getRoutes(): void
     {
         Route::get('mails/{mail}/preview', BetterEmailPreviewController::class)->name('mails.preview');
+        Route::get('mails/{mail}/attachments/{attachment}/download/{filename}', BetterEmailAttachmentDownloadController::class)->name('mails.attachment.download');
     }
 }
