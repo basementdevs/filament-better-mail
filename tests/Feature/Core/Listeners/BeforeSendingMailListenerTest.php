@@ -1,6 +1,5 @@
 <?php
 
-use Basement\BetterMails\Core\Enums\SupportedMailProvidersEnum;
 use Basement\BetterMails\Core\Listeners\BeforeSendingMailListener;
 use Basement\BetterMails\Core\Models\BetterEmail;
 use Basement\BetterMails\Tests\Fixtures\Mail\FakeMail;
@@ -32,11 +31,11 @@ it('should store an mail before sending', function () {
         'subject' => 'Fake Mail',
         'from' => json_encode(['hello@example.com']),
         'to' => json_encode(['richard@3points.com']),
-        'reply_to' => json_encode(['hello@example.com']),
+        'reply_to' => json_encode([]),
         'cc' => json_encode(['fake@example.com']),
         'bcc' => json_encode(['fake2@example.com']),
         'mail_class' => FakeMail::class,
-        'transport' => SupportedMailProvidersEnum::Resend->value,
+        'transport' => 'log',
     ]);
 });
 

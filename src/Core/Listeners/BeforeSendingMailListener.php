@@ -26,11 +26,11 @@ class BeforeSendingMailListener
                 'text' => $event->message->getTextBody() ?? null,
                 'from' => $event->message->getFrom() ?? null,
                 'to' => $event->message->getTo() ?? null,
-                'reply_to' => $event->message->getFrom() ?? null,
+                'reply_to' => $event->message->getReplyTo() ?? null,
                 'cc' => $event->message->getCc() ?? null,
                 'bcc' => $event->message->getBcc() ?? null,
                 'mail_class' => $event->data['__laravel_mailable'] ?? null,
-                'transport' => config('filament-better-mails.'.$event->data['mailer'].'.transport', 'resend') ?? 'null',
+                'transport' => config('mail.mailers.'.$event->data['mailer'].'.transport', 'smtp'),
             ]),
         );
 

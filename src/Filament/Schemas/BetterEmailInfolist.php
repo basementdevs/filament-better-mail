@@ -237,13 +237,16 @@ class BetterEmailInfolist
                             })
                             ->color(fn (MailEventTypeEnum $state): string => match ($state) {
                                 MailEventTypeEnum::Delivered => 'success',
-                                MailEventTypeEnum::Clicked => 'clicked',
+                                MailEventTypeEnum::Clicked => 'info',
                                 MailEventTypeEnum::Opened => 'info',
-                                MailEventTypeEnum::Sent => 'danger',
+                                MailEventTypeEnum::Sent => 'gray',
                                 MailEventTypeEnum::HardBounced => 'danger',
+                                MailEventTypeEnum::SoftBounced => 'warning',
                                 MailEventTypeEnum::Complained => 'warning',
                                 MailEventTypeEnum::Unsubscribed => 'danger',
                                 MailEventTypeEnum::Accepted => 'success',
+                                MailEventTypeEnum::Scheduled => 'gray',
+                                MailEventTypeEnum::Suppressed => 'danger',
                             })
                             ->formatStateUsing(fn (MailEventTypeEnum $state): string => ucfirst($state->value)),
                         TextEntry::make('occurred_at')

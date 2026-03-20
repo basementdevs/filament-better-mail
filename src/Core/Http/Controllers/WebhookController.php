@@ -15,6 +15,9 @@ final class WebhookController extends Controller
     public function __invoke(Request $request, BetterDriverContract $driver, string $provider)
     {
         $provider = SupportedMailProvidersEnum::tryFrom($provider);
+        if (! $provider) {
+            return response()->json(['message' => 'Unsupported provider.'], 422);
+        }
 
         BetterMailLogger::info('Webhook received.', [
             'provider' => $provider?->value,

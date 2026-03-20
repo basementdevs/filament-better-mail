@@ -77,6 +77,8 @@ class BetterEmail extends Model
         'complained_at',
         'soft_bounced_at',
         'hard_bounced_at',
+        'accepted_at',
+        'unsubscribed_at',
         'scheduled_at',
         'suppressed_at',
     ];
@@ -174,6 +176,16 @@ class BetterEmail extends Model
             'type' => MailEventTypeEnum::SoftBounced,
             'occurred_at' => now(),
         ]);
+    }
+
+    public function accepted(): void
+    {
+        $this->update(['accepted_at' => now()]);
+    }
+
+    public function unsubscribed(): void
+    {
+        $this->update(['unsubscribed_at' => now()]);
     }
 
     public function hardBounced(): void

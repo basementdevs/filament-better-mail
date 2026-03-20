@@ -1,7 +1,6 @@
 <?php
 
 use Basement\BetterMails\Core\Enums\MailEventTypeEnum;
-use Basement\BetterMails\Core\Enums\SupportedMailProvidersEnum;
 use Basement\BetterMails\Core\Listeners\AfterSendingMailListener;
 use Basement\BetterMails\Core\Models\BetterEmail;
 use Basement\BetterMails\Core\Models\BetterEmailEvent;
@@ -24,11 +23,11 @@ it('should update sent_at when MessageSent is captured', function (): void {
         'subject' => 'Fake Mail',
         'from' => json_encode(['hello@example.com']),
         'to' => json_encode(['richard@3points.com']),
-        'reply_to' => json_encode(['hello@example.com']),
+        'reply_to' => json_encode([]),
         'cc' => json_encode(['fake@example.com']),
         'bcc' => json_encode(['fake2@example.com']),
         'mail_class' => FakeMail::class,
-        'transport' => SupportedMailProvidersEnum::Resend->value,
+        'transport' => 'log',
         'sent_at' => now(),
     ]);
 });

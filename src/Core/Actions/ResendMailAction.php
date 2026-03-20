@@ -35,19 +35,26 @@ final class ResendMailAction
     private function setMessageRecipients(Message $message, ResendMailDTO $dto): self
     {
         $message->subject($dto->mail->subject ?? '')
-            ->from(array_values($dto->mail->from)[0], array_values($dto->mail->from)[0])
             ->to($dto->to);
 
-        if ($dto->mail->cc || count($dto->cc) > 0) {
-            $message->cc($dto->mail->cc ?? $dto->cc);
+        if (! empty($dto->mail->from)) {
+            $from = array_values($dto->mail->from)[0];
+            $message->from($from, $from);
         }
 
-        if ($dto->mail->bcc || count($dto->bcc) > 0) {
-            $message->bcc($dto->mail->bcc ?? $dto->bcc);
+        $cc = ! empty($dto->cc) ? $dto->cc : ($dto->mail->cc ?? []);
+        if (! empty($cc)) {
+            $message->cc($cc);
         }
 
-        if ($dto->mail->reply_to || $dto->replyTo) {
-            $message->replyTo($dto->mail->reply_to ?? $dto->replyTo);
+        $bcc = ! empty($dto->bcc) ? $dto->bcc : ($dto->mail->bcc ?? []);
+        if (! empty($bcc)) {
+            $message->bcc($bcc);
+        }
+
+        $replyTo = ! empty($dto->replyTo) ? $dto->replyTo : ($dto->mail->reply_to ?? []);
+        if (! empty($replyTo)) {
+            $message->replyTo($replyTo);
         }
 
         return $this;

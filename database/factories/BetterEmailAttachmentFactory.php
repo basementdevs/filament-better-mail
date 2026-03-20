@@ -12,10 +12,12 @@ class BetterEmailAttachmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => '...',
-            'ip' => '',
-            'hostname' => '',
-            'payload' => '',
+            'disk' => 'local',
+            'uuid' => $this->faker->uuid(),
+            'filename' => $this->faker->word().'.pdf',
+            'mime' => 'application/pdf',
+            'inline' => false,
+            'size' => $this->faker->numberBetween(1024, 1048576),
         ];
     }
 }
