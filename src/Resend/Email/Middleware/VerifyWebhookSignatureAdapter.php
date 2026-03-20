@@ -4,6 +4,7 @@ namespace Basement\BetterMails\Resend\Email\Middleware;
 
 use Basement\BetterMails\Core\Contracts\BetterMiddlewareContract;
 use Basement\BetterMails\Core\Http\Middleware\AbstractMailMiddleware;
+use Basement\BetterMails\Core\Support\BetterMailLogger;
 use Closure;
 use Illuminate\Http\Request;
 use Resend\Laravel\Http\Middleware\VerifyWebhookSignature;
@@ -12,8 +13,13 @@ final class VerifyWebhookSignatureAdapter extends AbstractMailMiddleware impleme
 {
     public function handle(Request $request, Closure $next): mixed
     {
-        $middleware = new VerifyWebhookSignature;
+        BetterMailLogger::info('Verifying webhook signature.', ['provider' => 'resend']);
 
-        return $middleware->handle($request, $next);
+        $middleware = new VerifyWebhookSignature;
+        $result = $middleware->handle($request, $next);
+
+        BetterMailLogger::info('Webhook signature verified.', ['provider' => 'resend']);
+
+        return $result;
     }
 }
