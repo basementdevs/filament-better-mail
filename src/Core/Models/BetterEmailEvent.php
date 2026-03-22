@@ -34,12 +34,6 @@ class BetterEmailEvent extends Model
 
     protected $table = 'mail_events';
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->table = config('filament-better-mails.mails.database.tables.events') ?: parent::getTable();
-    }
-
     protected $fillable = [
         'mail_id',
         'type',
@@ -66,6 +60,12 @@ class BetterEmailEvent extends Model
         'occurred_at' => 'datetime',
         'unsuppressed_at' => 'datetime',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->table = config('filament-better-mails.mails.database.tables.events') ?: parent::getTable();
+    }
 
     /**
      * @return BelongsTo<BetterEmail, $this>

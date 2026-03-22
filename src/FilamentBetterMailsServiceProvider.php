@@ -60,6 +60,18 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../routes/filament-better-mails-route.php');
     }
 
+    protected function getMigrationFileName(string $migrationFileName): string
+    {
+        $timestamp = date('Y_m_d_His');
+
+        $filesystem = $this->app->make(Filesystem::class);
+
+        return Collection::make([$this->app->databasePath().DIRECTORY_SEPARATOR.'migrations'.DIRECTORY_SEPARATOR])
+            ->flatMap(fn ($path) => $filesystem->glob($path.'*_'.$migrationFileName))
+            ->push($this->app->databasePath()."/migrations/{$timestamp}_{$migrationFileName}")
+            ->first();
+    }
+
     private function loadListeners(): void
     {
         Event::listen(MessageSending::class, BeforeSendingMailListener::class);
@@ -111,17 +123,5 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
         $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views'),
         ], 'filament-better-mails-views');
-    }
-
-    protected function getMigrationFileName(string $migrationFileName): string
-    {
-        $timestamp = date('Y_m_d_His');
-
-        $filesystem = $this->app->make(Filesystem::class);
-
-        return Collection::make([$this->app->databasePath().DIRECTORY_SEPARATOR.'migrations'.DIRECTORY_SEPARATOR])
-            ->flatMap(fn ($path) => $filesystem->glob($path.'*_'.$migrationFileName))
-            ->push($this->app->databasePath()."/migrations/{$timestamp}_{$migrationFileName}")
-            ->first();
     }
 }
