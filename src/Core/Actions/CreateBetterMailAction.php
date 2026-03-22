@@ -9,7 +9,9 @@ final class CreateBetterMailAction
 {
     public static function execute(BetterMailDTO $dto): BetterEmail
     {
-        return BetterEmail::query()->create([
+        $model = config('filament-better-mails.mails.models.mail');
+
+        return $model::query()->create([
             'uuid' => $dto->uuid,
             'mailer' => $dto->mailer,
             'subject' => $dto->subject,

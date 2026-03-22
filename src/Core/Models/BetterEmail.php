@@ -52,6 +52,12 @@ class BetterEmail extends Model
 
     protected $table = 'mails';
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->table = config('filament-better-mails.mails.database.tables.mails') ?: parent::getTable();
+    }
+
     protected $fillable = [
         'uuid',
         'mailer',
@@ -123,7 +129,7 @@ class BetterEmail extends Model
 
     public function latestEvent(): HasOne
     {
-        return $this->hasOne(BetterEmailEvent::class, 'mail_id')->latestOfMany('occurred_at');
+        return $this->hasOne(config('filament-better-mails.mails.models.event'), 'mail_id')->latestOfMany('occurred_at');
     }
 
     public function attachments(): HasMany
@@ -134,7 +140,7 @@ class BetterEmail extends Model
     public function events(): HasMany
     {
         return $this
-            ->hasMany(BetterEmailEvent::class, 'mail_id')
+            ->hasMany(config('filament-better-mails.mails.models.event'), 'mail_id')
             ->orderBy('occurred_at', 'desc');
     }
 

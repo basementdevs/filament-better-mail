@@ -34,6 +34,12 @@ class BetterEmailEvent extends Model
 
     protected $table = 'mail_events';
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->table = config('filament-better-mails.mails.database.tables.events') ?: parent::getTable();
+    }
+
     protected $fillable = [
         'mail_id',
         'type',
@@ -66,7 +72,7 @@ class BetterEmailEvent extends Model
      */
     public function mail(): BelongsTo
     {
-        return $this->belongsTo(BetterEmail::class, 'mail_id');
+        return $this->belongsTo(config('filament-better-mails.mails.models.mail'), 'mail_id');
     }
 
     protected static function newFactory(): BetterEmailEventFactory

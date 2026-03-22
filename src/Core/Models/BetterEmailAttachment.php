@@ -25,6 +25,12 @@ class BetterEmailAttachment extends Model
      */
     protected $table = 'mail_attachments';
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->table = config('filament-better-mails.mails.database.tables.attachments') ?: parent::getTable();
+    }
+
     protected $fillable = [
         'disk',
         'uuid',
@@ -42,11 +48,6 @@ class BetterEmailAttachment extends Model
         'inline' => 'boolean',
         'size' => 'integer',
     ];
-
-    public function getTable()
-    {
-        return config('filament-better-mails.mails.database.tables.attachments');
-    }
 
     public function mail(): BelongsTo
     {

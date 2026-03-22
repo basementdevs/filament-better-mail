@@ -23,8 +23,10 @@ use Basement\BetterMails\Resend\Email\Events\ResendEmailOpenedEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailReceivedEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailScheduledEvent;
 use Basement\BetterMails\Resend\Email\Events\ResendEmailSuppressedEvent;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Mail\Events\MessageSent;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -93,16 +95,33 @@ class FilamentBetterMailsServiceProvider extends PackageServiceProvider
 
     private function publish(): void
     {
+        if (! $this->app->runningInConsole()) {
+            return;
+        }
+
         $this->publishes([
             __DIR__.'/../config/filament-better-mails.php' => config_path('filament-better-mails.php'),
         ], 'filament-better-mails-config');
 
         $this->publishes([
-            __DIR__.'/../database/migrations/' => database_path('migrations'),
+            __DIR__.'/../database/migrations/create_filament_better_mails_table.php.stub' => $this->getMigrationFileName('create_filament_better_mails_table.php'),
+            __DIR__.'/../database/migrations/update_mails_add_scheduled_and_suppressed_columns.php.stub' => $this->getMigrationFileName('update_mails_add_scheduled_and_suppressed_columns.php'),
         ], 'filament-better-mails-migrations');
 
         $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views'),
         ], 'filament-better-mails-views');
+    }
+
+    protected function getMigrationFileName(string $migrationFileName): string
+    {
+        $timestamp = date('Y_m_d_His');
+
+        $filesystem = $this->app->make(Filesystem::class);
+
+        return Collection::make([$this->app->databasePath().DIRECTORY_SEPARATOR.'migrations'.DIRECTORY_SEPARATOR])
+            ->flatMap(fn ($path) => $filesystem->glob($path.'*_'.$migrationFileName))
+            ->push($this->app->databasePath()."/migrations/{$timestamp}_{$migrationFileName}")
+            ->first();
     }
 }

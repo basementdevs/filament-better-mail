@@ -2,10 +2,10 @@
 
 namespace Basement\BetterMails\Filament;
 
-use Basement\BetterMails\Core\Models\BetterEmail;
 use Basement\BetterMails\Filament\Pages\ListBetterEmails;
 use Basement\BetterMails\Filament\Pages\ViewBetterEmail;
 use Basement\BetterMails\Filament\Schemas\BetterEmailInfolist;
+use Filament\Panel;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -13,34 +13,40 @@ use Illuminate\Contracts\Support\Htmlable;
 
 class BetterEmailResource extends Resource
 {
-    protected static ?string $slug = 'mails';
-
     protected static ?string $recordTitleAttribute = 'subject';
 
     protected static bool $isScopedToTenant = false;
 
     protected static bool $shouldRegisterNavigation = true;
 
-    protected static ?string $model = BetterEmail::class;
+    public static function getModel(): string
+    {
+        return config('filament-better-mails.mails.models.mail');
+    }
+
+    public static function getSlug(?Panel $panel = null): string
+    {
+        return config('filament-better-mails.resource.slug', 'mails');
+    }
 
     public static function getNavigationGroup(): ?string
     {
-        return __('Emails');
+        return __(config('filament-better-mails.resource.navigation_group', 'Emails'));
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('Emails');
+        return __(config('filament-better-mails.resource.navigation_label', 'Emails'));
     }
 
     public static function getLabel(): ?string
     {
-        return __('Email');
+        return __(config('filament-better-mails.resource.label', 'Email'));
     }
 
     public static function getNavigationIcon(): \BackedEnum|Heroicon|Htmlable|string|null
     {
-        return Heroicon::Envelope;
+        return config('filament-better-mails.resource.navigation_icon', 'heroicon-o-envelope');
     }
 
     public static function infolist(Schema $schema): Schema

@@ -2,12 +2,12 @@
 
 namespace Basement\BetterMails\Core\Concerns;
 
-use Basement\BetterMails\Core\Models\BetterEmail;
-
 trait HasMail
 {
-    public function findMail(string $uuid): BetterEmail
+    public function findMail(string $uuid)
     {
-        return BetterEmail::query()->where('uuid', $uuid)->firstOrFail();
+        $model = config('filament-better-mails.mails.models.mail');
+
+        return $model::query()->where('uuid', $uuid)->firstOrFail();
     }
 }

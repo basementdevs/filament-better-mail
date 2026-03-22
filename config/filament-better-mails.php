@@ -52,5 +52,12 @@ return [
             ],
         ]
     ],
+    'resource' => [
+        'navigation_group' => 'Emails',
+        'navigation_label' => 'Emails',
+        'label' => 'Email',
+        'slug' => 'mails',
+        'navigation_icon' => 'heroicon-o-envelope',
+    ],
     'view_any' => true,
 ];
