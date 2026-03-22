@@ -2,7 +2,6 @@
 
 namespace Basement\BetterMails\Filament\Widgets;
 
-use Basement\BetterMails\Core\Models\BetterEmailEvent;
 use Filament\Facades\Filament;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -22,7 +21,7 @@ class BetterEmailStatsWidget extends BaseWidget
 
     protected function getStats(): array
     {
-        $class = BetterEmailEvent::class;
+        $class = config('filament-better-mails.mails.models.event');
 
         $bouncedMails = $class::where(fn ($query) => $query->softBounced()->orWhere(fn ($query) => $query->hardBounced()))->count();
         $openedMails = $class::opened()->count();

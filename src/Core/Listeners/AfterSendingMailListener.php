@@ -3,7 +3,6 @@
 namespace Basement\BetterMails\Core\Listeners;
 
 use Basement\BetterMails\Core\Actions\MarkMailAsSentAction;
-use Basement\BetterMails\Core\Models\BetterEmail;
 use Illuminate\Mail\Events\MessageSent;
 
 class AfterSendingMailListener
@@ -16,7 +15,8 @@ class AfterSendingMailListener
         }
 
         $uuid = $header->getBody();
-        $mail = BetterEmail::query()->where('uuid', $uuid)->first();
+        $mailModel = config('filament-better-mails.mails.models.mail');
+        $mail = $mailModel::query()->where('uuid', $uuid)->first();
         if (! $mail) {
             return;
         }

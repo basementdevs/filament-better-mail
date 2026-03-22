@@ -35,13 +35,13 @@ class ListBetterEmails extends ListRecords
         return [
             Tab::make()
                 ->label('All')
-                ->badge(fn ($query) => BetterEmail::query()->count()),
+                ->badge(fn ($query) => config('filament-better-mails.mails.models.mail')::query()->count()),
             ...collect(MailEventTypeEnum::cases())->map(fn (MailEventTypeEnum $event) => Tab::make()
                 ->icon($event->getIcon())
                 ->label($event->getLabel())
                 ->badgeColor($event->getColor())
                 ->modifyQueryUsing(fn ($query) => $query->whereHas('latestEvent', fn ($q) => $q->where('type', $event)))
-                ->badge(fn () => BetterEmail::whereHas('latestEvent', fn ($q) => $q->where('type', $event))->count())
+                ->badge(fn () => config('filament-better-mails.mails.models.mail')::whereHas('latestEvent', fn ($q) => $q->where('type', $event))->count())
             )->toArray(),
         ];
     }
