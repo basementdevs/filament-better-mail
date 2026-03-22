@@ -52,12 +52,6 @@ class BetterEmail extends Model
 
     protected $table = 'mails';
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->table = config('filament-better-mails.mails.database.tables.mails') ?: parent::getTable();
-    }
-
     protected $fillable = [
         'uuid',
         'mailer',
@@ -119,6 +113,12 @@ class BetterEmail extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->table = config('filament-better-mails.mails.database.tables.mails') ?: parent::getTable();
+    }
 
     public function prunable(): Builder
     {
