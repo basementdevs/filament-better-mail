@@ -9,7 +9,7 @@ use Filament\Actions\BulkAction;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Collection;
 
-class BulkResendAction extends BUlkAction
+class BulkResendAction extends BulkAction
 {
     protected function setUp(): void
     {
