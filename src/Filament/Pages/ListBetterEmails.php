@@ -116,9 +116,9 @@ class ListBetterEmails extends ListRecords
         ];
     }
 
-    private static function formatMailState(array $emails, bool $mailOnly = false): string
+    private static function formatMailState(?array $emails, bool $mailOnly = false): string
     {
-        return collect($emails)
+        return collect($emails ?? [])
             ->mapWithKeys(fn ($value, $key) => [$key => $value ?? $key])
             ->map(fn ($value, $key): string|int => $mailOnly ? $value : ($value == null ? $key : ($value !== $key ? sprintf('%s <%s>', $value, $key) : $key)))
             ->implode(', ');

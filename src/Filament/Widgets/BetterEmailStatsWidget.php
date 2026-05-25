@@ -46,25 +46,25 @@ class BetterEmailStatsWidget extends BaseWidget
 
         $widgets[] = Stat::make(__('Delivered'), number_format(($deliveredMails / $mailCount) * 100, 1).'%')
             ->label(__('Delivered'))
-            ->description($deliveredMails.' '.__('of').' '.$mailCount.' '.__('emails'))
+            ->description($deliveredMails.' '.(string) __('of').' '.$mailCount.' '.(string) __('emails'))
             ->color('success')
             ->url($generateUrl('delivered'));
 
         $widgets[] = Stat::make(__('Opened'), number_format(($openedMails / $mailCount) * 100, 1).'%')
             ->label(__('Opened'))
-            ->description($openedMails.' '.__('of').' '.$mailCount.' '.__('emails'))
+            ->description($openedMails.' '.(string) __('of').' '.$mailCount.' '.(string) __('emails'))
             ->color('info')
             ->url($generateUrl('opened'));
 
         $widgets[] = Stat::make(__('Clicked'), number_format(($clickedMails / $mailCount) * 100, 1).'%')
             ->label(__('Clicked'))
-            ->description($clickedMails.' '.__('of').' '.$mailCount.' '.__('emails'))
+            ->description($clickedMails.' '.(string) __('of').' '.$mailCount.' '.(string) __('emails'))
             ->color('clicked')
             ->url($generateUrl('clicked'));
 
         $widgets[] = Stat::make(__('Bounced'), number_format(($bouncedMails / $mailCount) * 100, 1).'%')
             ->label(__('Bounced'))
-            ->description($bouncedMails.' '.__('of').' '.$mailCount.' '.__('emails'))
+            ->description($bouncedMails.' '.(string) __('of').' '.$mailCount.' '.(string) __('emails'))
             ->color('danger')
             ->url($generateUrl('bounced'));
 
