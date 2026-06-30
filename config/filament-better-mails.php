@@ -40,6 +40,20 @@ return [
     ],
     'webhooks' => [
         'provider' => env('MAILS_WEBHOOK_PROVIDER', 'resend'),
+
+        /*
+        | Only process webhook events whose sender matches one of these values.
+        | Useful when several apps share the same provider account and every
+        | endpoint receives events for all sending. Each value may be a full
+        | email address ("noreply@flammabeneficios.com") or a bare domain
+        | ("flammabeneficios.com"). Leave empty to process everything.
+        | Comma separated.
+        */
+        'allowed_senders' => array_values(array_filter(array_map(
+            'trim',
+            explode(',', (string) env('MAILS_WEBHOOK_ALLOWED_SENDERS', ''))
+        ))),
+
         'logging' => [
             'channel' => env('MAILS_WEBHOOK_LOG_CHANNEL'),
             'enabled' => env('MAILS_WEBHOOK_LOGGING_ENABLED', false),
