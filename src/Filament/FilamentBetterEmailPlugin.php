@@ -26,7 +26,7 @@ final class FilamentBetterEmailPlugin implements Plugin
     {
         $panel->resources([BetterEmailResource::class])
             ->widgets([BetterEmailStatsWidget::class])
-            ->routes(fn () => $this->getRoutes())
+            ->authenticatedRoutes(fn () => $this->getRoutes())
             ->colors([
                 'blue' => Color::Blue,
                 'green' => Color::Green,

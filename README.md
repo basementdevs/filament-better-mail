@@ -261,7 +261,7 @@ Add middleware to the routes the plugin registers on your panel (mail preview an
 ],
 ```
 
-These routes already run your panel's base middleware. Use this to layer on extra checks, such as authentication or authorization.
+These routes run your panel's base and auth middleware, so they require a logged-in panel user. Use this to layer on extra checks, such as authorization or `password.confirm`.
 
 ### Pruning
 
