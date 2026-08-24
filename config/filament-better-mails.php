@@ -66,6 +66,13 @@ return [
             ],
         ]
     ],
+    'routes' => [
+        /*
+        | Middleware applied to the routes the plugin registers on the panel
+        | (mail preview and attachment download).
+        */
+        'middleware' => [],
+    ],
     'resource' => [
         'navigation_group' => 'Emails',
         'navigation_label' => 'Emails',
