@@ -26,7 +26,7 @@ final class FilamentBetterEmailPlugin implements Plugin
     {
         $panel->resources([BetterEmailResource::class])
             ->widgets([BetterEmailStatsWidget::class])
-            ->routes(fn () => $this->getRoutes())
+            ->authenticatedRoutes(fn () => $this->getRoutes())
             ->colors([
                 'blue' => Color::Blue,
                 'green' => Color::Green,
@@ -39,7 +39,10 @@ final class FilamentBetterEmailPlugin implements Plugin
 
     private function getRoutes(): void
     {
-        Route::get('mails/{mail}/preview', BetterEmailPreviewController::class)->name('mails.preview');
-        Route::get('mails/{mail}/attachments/{attachment}/download/{filename}', BetterEmailAttachmentDownloadController::class)->name('mails.attachment.download');
+        Route::middleware(config('filament-better-mails.routes.middleware', []))
+            ->group(function (): void {
+                Route::get('mails/{mail}/preview', BetterEmailPreviewController::class)->name('mails.preview');
+                Route::get('mails/{mail}/attachments/{attachment}/download/{filename}', BetterEmailAttachmentDownloadController::class)->name('mails.attachment.download');
+            });
     }
 }

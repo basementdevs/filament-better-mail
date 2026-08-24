@@ -192,6 +192,9 @@ return [
             ],
         ],
     ],
+    'routes' => [
+        'middleware' => [], // applied to the mail preview and attachment download routes
+    ],
     'resource' => [
         'navigation_group' => 'Emails',
         'navigation_label' => 'Emails',
@@ -247,6 +250,18 @@ Customize how the resource appears in the Filament sidebar:
     'navigation_icon' => 'heroicon-o-inbox',  // set to null to hide icon
 ],
 ```
+
+### Route Middleware
+
+Add middleware to the routes the plugin registers on your panel (mail preview and attachment download):
+
+```php
+'routes' => [
+    'middleware' => ['password.confirm'],
+],
+```
+
+These routes run your panel's base and auth middleware, so they require a logged-in panel user. Use this to layer on extra checks, such as authorization or `password.confirm`.
 
 ### Pruning
 
