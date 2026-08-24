@@ -49,7 +49,6 @@ class BeforeSendingMailListener
         }
 
         $disk = config('filament-better-mails.mails.logging.attachments.disk', 'local');
-        $root = config('filament-better-mails.mails.logging.attachments.root', 'mails/attachments');
 
         foreach ($attachments as $part) {
             $filename = $part->getFilename() ?? 'attachment';
@@ -64,10 +63,7 @@ class BeforeSendingMailListener
                 'size' => strlen($content),
             ]);
 
-            Storage::disk($disk)->put(
-                $root.'/'.$attachment->getKey().'/'.$filename,
-                $content,
-            );
+            Storage::disk($attachment->disk)->put($attachment->storage_path, $content);
         }
     }
 }

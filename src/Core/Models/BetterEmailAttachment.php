@@ -56,7 +56,9 @@ class BetterEmailAttachment extends Model
 
     public function getStoragePathAttribute(): string
     {
-        return rtrim(config('filament-better-mails.logging.attachments.root'), '/').'/'.$this->getKey().'/'.$this->filename;
+        $root = config('filament-better-mails.mails.logging.attachments.root', 'mails/attachments');
+
+        return rtrim($root, '/').'/'.$this->getKey().'/'.$this->filename;
     }
 
     public function getFileDataAttribute(): string
