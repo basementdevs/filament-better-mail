@@ -21,12 +21,12 @@ class BetterEmailStatsWidget extends BaseWidget
 
     protected function getStats(): array
     {
-        $class = config('filament-better-mails.mails.models.event');
+        $class = config('filament-better-mails.mails.models.mail');
 
-        $bouncedMails = $class::where(fn ($query) => $query->softBounced()->orWhere(fn ($query) => $query->hardBounced()))->count();
-        $openedMails = $class::opened()->count();
-        $deliveredMails = $class::delivered()->count();
-        $clickedMails = $class::clicked()->count();
+        $bouncedMails = $class::whereHas('latestEvent', fn ($query) => $query->softBounced()->orWhere(fn ($query) => $query->hardBounced()))->count();
+        $openedMails = $class::whereHas('latestEvent', fn ($query) => $query->opened())->count();
+        $deliveredMails = $class::whereHas('latestEvent', fn ($query) => $query->delivered())->count();
+        $clickedMails = $class::whereHas('latestEvent', fn ($query) => $query->clicked())->count();
 
         $mailCount = $class::count();
 
