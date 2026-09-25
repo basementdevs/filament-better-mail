@@ -69,7 +69,6 @@ class ListBetterEmails extends ListRecords
                     ->label(__('Recipient(s)'))
                     ->limit(50)
                     ->getStateUsing(fn (BetterEmail $record): string => self::formatMailState(emails: $record->to, mailOnly: true))
-                    ->sortable()
                     ->searchable(),
                 MailStatusColumn::make()
                     ->state(fn ($record) => $record->events),
